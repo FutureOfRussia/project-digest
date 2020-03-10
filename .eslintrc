@@ -1,0 +1,94 @@
+{
+  "parser": "babel-eslint",
+  "extends": [
+    "airbnb",
+    "plugin:flowtype/recommended"
+  ],
+  "plugins": [
+    "react",
+    "react-native",
+    "react-hooks",
+    "flowtype",
+    "jsx-a11y",
+    "import"
+  ],
+  "rules": {
+    "camelcase": 1,
+    "arrow-body-style": 1,
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [
+          ".js",
+          ".jsx"
+        ]
+      }
+    ],
+    "react/prefer-stateless-function": [
+      0,
+      {
+        "ignorePureComponents": true
+      }
+    ],
+    "react/forbid-prop-types": [
+      0,
+      {
+        "forbid": []
+      }
+    ],
+    "react/destructuring-assignment": 0,
+    "react/prop-types": [
+      "error",
+      {
+        "ignore": [
+          "navigation"
+        ]
+      }
+    ],
+    "import/no-unresolved": [
+      2,
+      {
+        "commonjs": true,
+        "amd": true
+      }
+    ],
+    "import/extensions": [
+      1,
+      "never",
+      {
+        "svg": "always"
+      }
+    ],
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": true,
+        "optionalDependencies": false,
+        "peerDependencies": false
+      }
+    ],
+    "semi": [
+      "error",
+      "never"
+    ],
+    "no-underscore-dangle": [
+      0
+    ],
+    "global-require": [
+      0
+    ],
+    "react/no-access-state-in-setstate": 0,
+    "react/jsx-props-no-spreading": 0,
+    "react/static-property-placement" : 0,
+    "react-native/no-unused-styles": 2,
+    "react-native/split-platform-components": 2,
+    "react-native/no-inline-styles": 2,
+    "react-native/no-color-literals": 2,
+    "no-trailing-spaces": 0,
+    "no-use-before-define": 0,
+    "no-console": 0
+  },
+  "env": {
+    "react-native/react-native": true
+  }
+}
