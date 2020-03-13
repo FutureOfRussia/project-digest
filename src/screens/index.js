@@ -1,5 +1,9 @@
-import Main from './Main'
+import Home from './Home'
+import Overview from './Overview'
+import Card from './Card'
 
 export {
-  Main,
+  Home,
+  Overview,
+  Card,
 }
