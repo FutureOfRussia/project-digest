@@ -4,9 +4,10 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Entypo } from '@expo/vector-icons'
 import { useTerms } from '../helpers/Utilities'
-import { Home, Overview } from '../screens'
+import { Overview } from '../screens'
 import { px } from '../helpers/Dimensions'
 import { Colors } from '../constants'
+import HomeStack from './HomeStack'
 
 const Tab = createBottomTabNavigator()
 
@@ -26,12 +27,13 @@ const tabBarOptions = {
 
 export default function () {
   const { tabs: terms } = useTerms()
+
   return (
     <NavigationContainer>
       <Tab.Navigator initialRouteName="Home" tabBarOptions={tabBarOptions}>
         <Tab.Screen
           name="Home"
-          component={Home}
+          component={HomeStack}
           options={{
             title: terms.home,
             tabBarIcon: ({ color }: { color: string }) => (

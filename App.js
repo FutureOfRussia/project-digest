@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import { View } from 'react-native'
 import { Provider } from 'react-redux'
+// eslint-disable-next-line import/no-unresolved
 import { enableScreens } from 'react-native-screens'
 import { AppLoading } from 'expo'
 import * as Font from 'expo-font'
+import { Asset } from 'expo-asset'
 import AppNavigator from './src/navigation/AppNavigator'
 import { Styles } from './src/constants'
 import store from './src/store'
@@ -15,6 +17,7 @@ export default function App() {
 
   const _loadResourcesAsync = async () => Promise.all([
     Font.loadAsync({}),
+    Asset.fromModule(require('./assets/onepunch.jpg')).downloadAsync(),
   ])
 
   if (loading) {
