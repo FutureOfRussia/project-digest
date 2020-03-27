@@ -16,6 +16,7 @@ export default StyleSheet.create({
   },
   imageContainer: {
     zIndex: 20,
+    height: px(260),
   },
   image: {
     width: '100%',
@@ -24,7 +25,7 @@ export default StyleSheet.create({
   },
   content: {
     paddingVertical: px(30),
-    paddingHorizontal: px(20),
+    paddingRight: px(20),
   },
   name: {
     alignSelf: 'flex-start',
@@ -35,11 +36,21 @@ export default StyleSheet.create({
     color: Colors.black(0.85),
   },
   description: {
-    marginTop: px(10),
+    marginTop: px(20),
   },
   text: {
     fontSize: px(16),
     fontWeight: '500',
     color: Colors.black(0.6),
+  },
+  backButton: {
+    position: 'absolute',
+    top: px(25),
+    right: px(25),
+    width: px(30),
+    height: px(30),
+    borderRadius: px(15),
+    zIndex: 30,
+    padding: px(3),
   },
 })

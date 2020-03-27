@@ -1,42 +1,35 @@
 // @flow
 import React, { useState, useEffect } from 'react'
 import {
-  View, Text, Image, StyleSheet, Platform, StatusBar, TouchableOpacity, BackHandler,
+  View, Text, Image, StyleSheet, Platform, StatusBar, BackHandler, TouchableWithoutFeedback,
 } from 'react-native'
+import { AntDesign } from '@expo/vector-icons'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { SharedElement } from 'react-navigation-shared-element'
 import { PanGestureHandler, State } from 'react-native-gesture-handler'
 import Animated, {
-  and, block, call, cond, eq, Extrapolate, greaterOrEq, interpolate, set, useCode,
+  and, block, call, color, cond, eq, Extrapolate, greaterOrEq,
+  greaterThan, interpolate, lessOrEq, neq, or, set, useCode,
 } from 'react-native-reanimated'
 import {
   onGestureEvent, timing, useValues,
 } from 'react-native-redash'
 import { useMemoOne } from 'use-memo-one'
-import { height, px } from '../../helpers/Dimensions'
+import { px } from '../../helpers/Dimensions'
+import { Styles } from '../../constants'
 import styles from './styles'
-import { Colors, Styles } from '../../constants'
 
 Card.sharedElements = (route) => route.params?.sharedElements
 
 export default function Card() {
-  const [scrollOffset, translationY, translateY, snapBack, state] = useValues(
-    [0, 0, 0, 0, State.UNDETERMINED],
-    [],
-  )
-  const scale = interpolate(translateY, {
-    inputRange: [0, px(90), px(160), px(161)],
-    outputRange: [1, 0.9, 0.85, 0.85],
-    extrapolate: Extrapolate.CLAMP,
-  })
-  const opacity = interpolate(translateY, {
-    inputRange: [0, px(160), px(161)],
-    outputRange: [1, 0.5, 0],
-    extrapolate: Extrapolate.CLAMP,
-  })
+  const [
+    scrollOffset, direction, x, y, translationY, translate, translationX, snapBack, state,
+  ] = useValues([-px(260), 0, 0, 0, 0, 0, 0, 0, State.UNDETERMINED], [])
   const gestureHandler = useMemoOne(
-    () => onGestureEvent({ translationY, state }),
-    [state, translationY],
+    () => onGestureEvent({
+      x, y, translationX, translationY, state,
+    }),
+    [state, translationY, translationX, x, y],
   )
   const [backEnabled, setBackEnabled] = useState(false)
   const navigation = useNavigation()
@@ -45,33 +38,55 @@ export default function Card() {
   let goBack = false
 
   useEffect(() => {
-    if (!backEnabled) setTimeout(() => setBackEnabled(true), 500)
+    setTimeout(() => setBackEnabled(true), 500)
+  }, [])
+
+  useEffect(() => {
     const backHandler = BackHandler.addEventListener('hardwareBackPress', () => !backEnabled)
     return () => backHandler.remove()
   }, [backEnabled])
 
+  const backCallback = () => {
+    if (!goBack) {
+      goBack = true
+      navigation.navigate('Home')
+    }
+  }
+
   useCode(
     () => block([
       cond(
-        and(greaterOrEq(translationY, px(180)), eq(snapBack, 0)),
-        set(snapBack, 1),
+        and(eq(state, State.BEGAN)),
+        cond(
+          or(lessOrEq(x, px(50)), lessOrEq(y, px(260))),
+          set(direction, cond(greaterThan(x, px(50)), 0.5, 1)),
+          set(direction, 0),
+        ),
       ),
       cond(
-        snapBack,
-        call([], () => {
-          if (!goBack) {
-            goBack = true
-            navigation.navigate('Home')
-          }
-        }),
-        cond(
-          eq(state, State.END),
-          set(
-            translateY,
-            timing({ from: translationY, to: 0, duration: 100 }),
+        neq(direction, 0),
+        [
+          cond(
+            and(
+              greaterOrEq(cond(eq(direction, 1), translationX, translationY), px(180)),
+              eq(snapBack, 0),
+            ),
+            set(snapBack, 1),
           ),
-          set(translateY, translationY),
-        ),
+          cond(
+            snapBack,
+            call([], backCallback),
+            cond(
+              eq(state, State.END),
+              set(translate, timing({
+                from: cond(eq(direction, 1), translationX, translationY),
+                to: 0,
+                duration: 100,
+              })),
+              set(translate, cond(eq(direction, 1), translationX, translationY)),
+            ),
+          ),
+        ],
       ),
     ]),
     [],
@@ -80,63 +95,98 @@ export default function Card() {
   return (
     <View style={styles.substrate}>
       <StatusBar barStyle="light-content" hidden={Platform.OS === 'ios'} />
-      <PanGestureHandler
-        {...gestureHandler}
-        hitSlop={Platform.select({
-          android: { bottom: -(height(100) - px(300)), height: 0 },
-          ios: { top: 0, height: px(260) },
-        })}
-      >
-        <Animated.View style={[styles.container, { transform: [{ scale }] }]}>
-          {/*<Animated.View style={{*/}
-          {/*  position: 'absolute',*/}
-          {/*  top: px(20),*/}
-          {/*  right: px(20),*/}
-          {/*  zIndex: 30,*/}
-          {/*  backgroundColor: Colors.white(0.9),*/}
-          {/*  width: px(30),*/}
-          {/*  height: px(30),*/}
-          {/*  borderRadius: px(15),*/}
-          {/*  justifyContent: 'center',*/}
-          {/*  alignItems: 'center',*/}
-          {/*  opacity: back ? 0 : opacity,*/}
-          {/*}}>*/}
-          {/*  <TouchableOpacity onPress={() => {*/}
-          {/*    setBack(true)*/}
-          {/*    navigation.goBack()*/}
-          {/*  }}>*/}
-          {/*    <Text style={{*/}
-          {/*      color: Colors.black(0.8),*/}
-          {/*      fontSize: px(20),*/}
-          {/*    }}>X</Text>*/}
-          {/*  </TouchableOpacity>*/}
-          {/*</Animated.View>*/}
+      <PanGestureHandler {...gestureHandler}>
+        <Animated.View
+          style={[
+            styles.container,
+            {
+              transform: [{
+                scale: interpolate(translate, {
+                  inputRange: [0, px(160), px(161)],
+                  outputRange: [1, 0.9, 0.9],
+                  extrapolate: Extrapolate.CLAMP,
+                }),
+                translateY: interpolate(translate, {
+                  inputRange: [0, px(160), px(161)],
+                  outputRange: [0, px(50), px(50)],
+                  extrapolate: Extrapolate.CLAMP,
+                }),
+              }],
+            },
+          ]}
+        >
+          <TouchableWithoutFeedback
+            onPress={() => {
+              setBackEnabled(false)
+              navigation.goBack()
+            }}
+          >
+            <Animated.View
+              style={[
+                styles.backButton,
+                {
+                  backgroundColor: cond(
+                    greaterOrEq(scrollOffset, -px(40)),
+                    color(0, 0, 0, 0.8),
+                    color(255, 255, 255, 0.8),
+                  ),
+                },
+                {
+                  opacity: interpolate(translate, {
+                    inputRange: [0, px(160), px(160) + 1],
+                    outputRange: backEnabled ? [1, 0.5, 0] : [0, 0, 0],
+                  }),
+                },
+              ]}
+            >
+              <Animated.Text
+                style={{
+                  color: cond(
+                    greaterOrEq(scrollOffset, -px(40)),
+                    color(255, 255, 255),
+                    color(0, 0, 0),
+                  ),
+                }}
+              >
+                <AntDesign name="close" size={px(24)} />
+              </Animated.Text>
+            </Animated.View>
+          </TouchableWithoutFeedback>
           <SharedElement id={`background.${route.params?.card.id}`} style={StyleSheet.absoluteFill}>
             <View style={styles.background} />
           </SharedElement>
-          <Animated.View style={[styles.imageContainer, Platform.OS === 'ios' && {
-            transform: [{
-              scale: scrollOffset.interpolate({
-                inputRange: [px(260) / -2, 0, 1],
-                outputRange: [2, 1, 1],
-              }),
-            }],
-          }]}
+          <Animated.View
+            style={[
+              StyleSheet.absoluteFill,
+              styles.imageContainer,
+              {
+                transform: [{
+                  scale: interpolate(scrollOffset, {
+                    inputRange: [-px(260) - 1, -px(260), -px(260) + 1],
+                    outputRange: [1.008, 1, 1],
+                  }),
+                  translateY: interpolate(scrollOffset, {
+                    inputRange: [-px(260) - 1, -px(260), -px(260) + 1],
+                    outputRange: [0, 0, -1],
+                  }),
+                }],
+              },
+            ]}
           >
             <SharedElement id={`image.${route.params?.card.id}`}>
               <Image style={styles.image} source={route.params?.card.photo} />
             </SharedElement>
           </Animated.View>
           <Animated.ScrollView
-            style={Styles.fullFlex}
+            style={[Styles.fullFlex, { marginLeft: px(30) }]}
             contentContainerStyle={styles.content}
-            scrollEventThrottle={16}
-            onScroll={Platform.OS === 'ios' && Animated.event(
+            scrollEventThrottle={1}
+            onScroll={Animated.event(
               [{ nativeEvent: { contentOffset: { y: scrollOffset } } }],
-              {
-                useNativeDriver: true,
-              },
+              { useNativeDriver: true },
             )}
+            contentInset={{ top: px(260) }}
+            contentOffset={{ y: -px(260) }}
           >
             <SharedElement id={`name.${route.params?.card.id}`} style={styles.name}>
               <Text style={styles.title}>
