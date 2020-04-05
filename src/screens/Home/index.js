@@ -1,6 +1,7 @@
 // @flow
 import React, { useRef, useState, useEffect } from 'react'
-import { View, Animated } from 'react-native'
+import { View, Animated, PanResponder } from 'react-native'
+import Reanimated, { Easing } from 'react-native-reanimated'
 import { useNavigation, useIsFocused } from '@react-navigation/native'
 import { useTerms } from '../../helpers/Utilities'
 import { Header, Card } from '../../components'
@@ -12,6 +13,7 @@ export default function Home() {
   const [headerShow, setHeaderShow] = useState(true)
   const [scrollDistance, setScrollDistance] = useState(0)
   const scrollY = useRef(new Animated.Value(0)).current
+  const velocity = useRef(new Reanimated.Value(0)).current
   const scroll = useRef(null)
 
   const navigation = useNavigation()
@@ -111,12 +113,31 @@ export default function Home() {
     return 0
   }
 
+  const panResponder = useRef(
+    PanResponder.create({
+      onMoveShouldSetPanResponder: () => true,
+      onPanResponderMove: (e, { vy }) => {
+        velocity.setValue(vy)
+      },
+      onPanResponderRelease: (e, { vy }) => {
+        if (vy > 0.5 || vy < -0.5) {
+          setTimeout(() => {
+            Reanimated.timing(velocity, {
+              toValue: 0, duration: 250, easing: Easing.in(Easing.ease),
+            }).start()
+          }, 1500 / Math.abs(vy))
+        }
+      },
+    }),
+  ).current
+
   return (
     <View style={Styles.fullFlex}>
       <Header title={terms.title} opacity={getHeaderOpacity()} />
       <Animated.ScrollView
         ref={scroll}
         style={Styles.fullFlex}
+        scrollEventThrottle={1}
         onScroll={Animated.event(
           [{ nativeEvent: { contentOffset: { y: scrollY } } }],
           {
@@ -124,10 +145,16 @@ export default function Home() {
             listener: ({ nativeEvent: { contentOffset: { y } } }) => setScrollDistance(y),
           },
         )}
+        {...panResponder.panHandlers}
         contentContainerStyle={styles.content}
       >
         {cards.map((card, index) => (
-          <Card card={card} onPress={() => onPressCard(card, index)} key={index.toString()} />
+          <Card
+            card={card}
+            velocity={velocity}
+            key={index.toString()}
+            onPress={() => onPressCard(card, index)}
+          />
         ))}
       </Animated.ScrollView>
     </View>

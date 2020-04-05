@@ -4,7 +4,6 @@
     "slug": "Digest",
     "description": "Project 'Digest'",
     "privacy": "public",
-    "sdkVersion": "36.0.0",
     "platforms": [
       "ios",
       "android",

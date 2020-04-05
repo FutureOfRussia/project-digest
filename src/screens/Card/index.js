@@ -161,10 +161,6 @@ export default function Card() {
               styles.imageContainer,
               {
                 transform: [{
-                  scale: interpolate(scrollOffset, {
-                    inputRange: [-px(260) - 1, -px(260), -px(260) + 1],
-                    outputRange: [1.008, 1, 1],
-                  }),
                   translateY: interpolate(scrollOffset, {
                     inputRange: [-px(260) - 1, -px(260), -px(260) + 1],
                     outputRange: [0, 0, -1],
