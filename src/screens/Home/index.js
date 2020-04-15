@@ -92,7 +92,7 @@ export default function Home() {
       && scrollDistance < (((index + 1) * px(440)) + px(15))) {
       setHeaderShow(false)
     }
-    navigation.navigate('Card', {
+    navigation.navigate('Details', {
       card,
       sharedElements: [
         `background.${card.id}`,
@@ -123,7 +123,7 @@ export default function Home() {
         if (vy > 0.5 || vy < -0.5) {
           setTimeout(() => {
             Reanimated.timing(velocity, {
-              toValue: 0, duration: 250, easing: Easing.in(Easing.ease),
+              toValue: 0, duration: 400, easing: Easing.in(Easing.ease),
             }).start()
           }, 1500 / Math.abs(vy))
         }
@@ -150,8 +150,7 @@ export default function Home() {
       >
         {cards.map((card, index) => (
           <Card
-            card={card}
-            velocity={velocity}
+            {...{ card, velocity }}
             key={index.toString()}
             onPress={() => onPressCard(card, index)}
           />

@@ -1,4 +1,5 @@
-import { StyleSheet, Platform } from 'react-native'
+import { StyleSheet } from 'react-native'
+import { shadow } from '../../helpers/Utilities'
 import { px } from '../../helpers/Dimensions'
 import { Colors } from '../../constants'
 
@@ -10,17 +11,7 @@ export default StyleSheet.create({
   background: {
     backgroundColor: Colors.white(),
     ...StyleSheet.absoluteFillObject,
-    ...Platform.select({
-      ios: {
-        shadowColor: Colors.black(0.5),
-        shadowOffset: { width: 0, height: 0 },
-        shadowRadius: 10,
-        shadowOpacity: 0.4,
-      },
-      android: {
-        elevation: 10,
-      },
-    }),
+    ...shadow(),
   },
   image: {
     height: px(260),

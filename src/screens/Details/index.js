@@ -19,9 +19,9 @@ import { px } from '../../helpers/Dimensions'
 import { Styles } from '../../constants'
 import styles from './styles'
 
-Card.sharedElements = (route) => route.params?.sharedElements
+Details.sharedElements = (route) => route.params?.sharedElements
 
-export default function Card() {
+export default function Details() {
   const [
     scrollOffset, direction, x, y, translationY, translate, translationX, snapBack, state,
   ] = useValues([-px(260), 0, 0, 0, 0, 0, 0, 0, State.UNDETERMINED], [])

@@ -11,7 +11,7 @@ export default function Card({ card, velocity, onPress }: {
   card: Object, velocity: number, onPress: Function,
 }) {
   return (
-    <TouchableWithoutFeedback onPress={onPress}>
+    <TouchableWithoutFeedback {...{ onPress }}>
       <Reanimated.View
         style={[
           styles.container,

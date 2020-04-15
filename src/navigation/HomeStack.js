@@ -1,12 +1,12 @@
 // @flow
 import React, { useLayoutEffect } from 'react'
 import { createSharedElementStackNavigator } from 'react-navigation-shared-element'
-import { Card, Home } from '../screens'
+import { Details, Home } from '../screens'
 
 const { Navigator, Screen } = createSharedElementStackNavigator()
 
 export default function ({ navigation, route }: any) {
-  const isCard = () => !!(route.state && route.state.routes[route.state.index].name === 'Card')
+  const isCard = () => !!(route.state && route.state.routes[route.state.index].name === 'Details')
 
   useLayoutEffect(() => {
     setTimeout(() => navigation.setOptions({ tabBarVisible: !isCard() }), 400)
@@ -35,7 +35,7 @@ export default function ({ navigation, route }: any) {
       }}
     >
       <Screen name="Home" component={Home} />
-      <Screen name="Card" component={Card} />
+      <Screen name="Details" component={Details} />
     </Navigator>
   )
 }
