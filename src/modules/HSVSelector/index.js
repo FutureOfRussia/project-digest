@@ -67,7 +67,7 @@ export default function HSVSelector({ onSave }: { onSave: Function }) {
       <Slider value={value} color={hsv2color(hue, saturation, 1)} state={state} />
       <Animated.View style={[styles.colorBlock, { backgroundColor: color(r, g, b) }]}>
         <View style={styles.hueBlock}>
-          <Surface style={styles.hue} onLoad={() => console.log('123')}>
+          <Surface style={styles.hue}>
             <Node shader={shaders.hue} />
           </Surface>
           <Picker hue={hue} saturation={saturation} size={px(225)} state={state} />

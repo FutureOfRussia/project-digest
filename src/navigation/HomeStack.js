@@ -24,9 +24,8 @@ export default function ({ navigation, route }: any) {
         },
         cardStyleInterpolator: ({ current: { progress } }) => {
           const opacity = progress.interpolate({
-            inputRange: [0, 1],
-            outputRange: [0, 1],
-            extrapolate: 'clamp',
+            inputRange: [0, 0.5, 0.9, 1],
+            outputRange: [0, 0.25, 0.7, 1],
           })
           return { cardStyle: { opacity } }
         },

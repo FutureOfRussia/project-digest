@@ -1,5 +1,5 @@
-# project-digest
-Project "Digest"
+# Project "Digest"
+<img src="https://github.com/FutureOfRussia/project-digest/blob/master/assets/splash.png?raw=true" width="250" height="250" />
 
 ### What's this?
 This is the place for my creative experiments. Ultimately, I see it as a UI Kit, a set of responsive interfaces with powerful animations.
