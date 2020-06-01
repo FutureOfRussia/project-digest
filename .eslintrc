@@ -1,21 +1,25 @@
 {
-  "parser": "babel-eslint",
-  "extends": [
-    "airbnb",
-    "plugin:flowtype/recommended"
-  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 11,
+    "sourceType": "module"
+  },
+  "extends": ["airbnb"],
   "plugins": [
     "react",
     "react-native",
     "react-hooks",
-    "flowtype",
+    "@typescript-eslint",
     "jsx-a11y",
     "import"
   ],
   "settings": {
     "import/resolver": {
       "node": {
-        "extensions": [".js", ".jsx", ".json", ".native.js"]
+        "extensions": [".js", ".jsx", ".json", ".native.js", ".ts", ".tsx"]
       }
     }
   },
@@ -27,7 +31,8 @@
       {
         "extensions": [
           ".js",
-          ".jsx"
+          ".jsx",
+          ".tsx"
         ]
       }
     ],
@@ -93,7 +98,9 @@
     "react-native/no-color-literals": 2,
     "no-trailing-spaces": 0,
     "no-use-before-define": 0,
-    "no-console": 0
+    "no-console": 0,
+    "max-len": ["error", { "code":  120 }],
+    "no-unused-vars": "off"
   },
   "env": {
     "react-native/react-native": true
