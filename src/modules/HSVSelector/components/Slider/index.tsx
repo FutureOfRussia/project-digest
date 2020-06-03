@@ -1,10 +1,10 @@
 // @flow
 import React from 'react'
 import Animated, {
-  diffClamp, divide, set, useCode, block,
+  diffClamp, divide, set, useCode, block, sub,
 } from 'react-native-reanimated'
 import { PanGestureHandler, State } from 'react-native-gesture-handler'
-import { onGestureEvent, useValue, withOffset } from 'react-native-redash'
+import { onGestureEvent, useValues, withOffset } from 'react-native-redash'
 import { LinearGradient } from 'expo-linear-gradient'
 import { useMemoOne } from 'use-memo-one'
 import * as Haptics from 'expo-haptics'
@@ -21,17 +21,15 @@ interface SliderProps {
 }
 
 export default function Slider({ value, color, state }: SliderProps) {
-  const _state = useValue(State.UNDETERMINED)
-  const translationX = useValue(0)
-  const offset = useValue(px(250))
+  const [_state, translationX, offset, translateX] = useValues(State.UNDETERMINED, 0, 0, px(250))
   const gestureHandler = useMemoOne(() => onGestureEvent({
     translationX,
     state: _state,
-  }), [translationX, _state])
-  const translateX = diffClamp(withOffset(translationX, _state, offset), 0, px(250))
+  }), [])
 
   useCode(() => block([
-    set(value, divide(translateX, px(250))),
+    set(translateX, diffClamp(withOffset(translationX, _state, offset), 0, px(250))),
+    set(value, divide(sub(px(250), translateX), px(250))),
     set(state, _state),
   ]), [])
 
@@ -44,8 +42,8 @@ export default function Slider({ value, color, state }: SliderProps) {
     <Animated.View style={[styles.container, { backgroundColor: color }]}>
       <LinearGradient
         colors={[Colors.BLACK, black(0.35), Colors.TRANSPARENT]}
-        start={{ x: 0, y: 0.5 }}
-        end={{ x: 1, y: 0.5 }}
+        start={{ x: 1, y: 0.5 }}
+        end={{ x: 0, y: 0.5 }}
         style={styles.background}
       >
         <PanGestureHandler {...gestureHandler}>

@@ -1,15 +1,15 @@
 export interface AppStateType {
-  language: 'ru' | 'en'
+  locale: 'ru' | 'en'
 }
 
 export interface AppStateDispatchType {
-  main: {
+  appState: {
     setAppState: (payload: object) => AppStateType
   }
 }
 
 const initialState: AppStateType = {
-  language: 'ru',
+  locale: 'en',
 }
 
 export const appState = {

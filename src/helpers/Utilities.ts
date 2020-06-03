@@ -12,9 +12,9 @@ const hitSlop = (offset: number) => ({
 })
 
 const useTerms = () => {
-  const { language } = useSelector((state: State) => state.appState)
+  const { locale } = useSelector((state: State) => state.appState)
 
-  return Languages[language]
+  return Languages[locale]
 }
 
 interface Shadow {

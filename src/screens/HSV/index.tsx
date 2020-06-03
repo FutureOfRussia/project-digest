@@ -3,7 +3,7 @@ import { View } from 'react-native'
 import { HSVSelector } from '../../modules'
 import styles from './styles'
 
-export default function Overview() {
+export default function HSV() {
   const [color, setColor] = useState({ r: 255, g: 255, b: 255 })
 
   return (

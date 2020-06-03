@@ -1,7 +1,9 @@
 import Home from './Home'
-import Overview from './Overview'
+import Profile from './Profile'
+import HSV from './HSV'
 
 export {
   Home,
-  Overview,
+  Profile,
+  HSV,
 }

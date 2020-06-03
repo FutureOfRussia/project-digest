@@ -1,5 +1,5 @@
 // @flow
-import React, { useMemo } from 'react'
+import React from 'react'
 import { Text, View } from 'react-native'
 import { Surface } from 'gl-react-expo'
 import { GLSL, Node, Shaders } from 'gl-react'
@@ -10,6 +10,7 @@ import { State } from 'react-native-gesture-handler'
 import {
   hsv2color, hsv2rgb, ReText, string, useValues,
 } from 'react-native-redash'
+import { useMemoOne } from 'use-memo-one'
 import { px } from '../../helpers/Dimensions'
 import { Picker, Slider } from './components'
 import styles from './styles'
@@ -57,7 +58,7 @@ export default function HSVSelector({ onSave }: { onSave: (color: Color) => void
     call([r, g, b], ([_r, _g, _b]) => onSave({ r: _r, g: _g, b: _b })),
   ), [])
 
-  return useMemo(() => (
+  return useMemoOne(() => (
     <View style={styles.container}>
       <View style={styles.rgbBlock}>
         <ReText text={string`R${r}`} style={[styles.rgb, { color: color(r, 0, 0) }]} />

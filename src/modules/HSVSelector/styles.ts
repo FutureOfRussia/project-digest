@@ -8,6 +8,7 @@ export default StyleSheet.create({
   container: {
     backgroundColor: Colors.WHITE,
     padding: px(10),
+    width: px(320),
     borderRadius: px(20),
     borderBottomLeftRadius: px(60),
     borderBottomRightRadius: px(60),
