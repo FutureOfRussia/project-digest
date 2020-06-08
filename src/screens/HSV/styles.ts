@@ -1,9 +1,29 @@
-import { StyleSheet } from 'react-native'
+import { Platform, StyleSheet } from 'react-native'
+import { px } from '../../helpers/Dimensions'
+import { Colors } from '../../constants'
+import { black } from '../../helpers/Colors'
 
 export default StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    paddingHorizontal: px(20),
+    paddingBottom: px(60),
+    paddingTop: Platform.select({ ios: px(180), android: px(40) }),
+  },
+  body: {
+    fontSize: px(16),
+    fontWeight: '400',
+    color: black(0.8),
+  },
+  heading2: {
+    marginTop: px(30),
+    fontSize: px(24),
+    fontWeight: '600',
+    color: Colors.BLACK,
+  },
+  link: {
+    color: Colors.ACTIVE_TINT,
+  },
+  code_inline: {
+    backgroundColor: Colors.BACKGROUND,
   },
 })

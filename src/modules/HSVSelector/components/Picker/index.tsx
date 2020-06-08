@@ -1,4 +1,3 @@
-// @flow
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import { PanGestureHandler, State } from 'react-native-gesture-handler'

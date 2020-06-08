@@ -1,4 +1,3 @@
-// @flow
 import React, { useState, useEffect } from 'react'
 import {
   View, Text, Image, StyleSheet, Platform, StatusBar, BackHandler, TouchableWithoutFeedback,

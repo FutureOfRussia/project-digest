@@ -1,4 +1,3 @@
-// @flow
 import React from 'react'
 import { Text, View } from 'react-native'
 import { Surface } from 'gl-react-expo'
@@ -15,13 +14,18 @@ import { px } from '../../helpers/Dimensions'
 import { Picker, Slider } from './components'
 import styles from './styles'
 
-interface Color {
+export interface Color {
   r: number
   g: number
   b: number
 }
 
-export default function HSVSelector({ onSave }: { onSave: (color: Color) => void }) {
+interface Props {
+  onSave?: (color: Color) => void
+  title?: string
+}
+
+export default function HSVSelector({ onSave = () => {}, title = '' }: Props) {
   const [hue, saturation, value, state] = useValues(0.0, 0.0, 0.0, State.UNDETERMINED)
   const { r, g, b } = hsv2rgb(hue, saturation, value)
 
@@ -66,7 +70,7 @@ export default function HSVSelector({ onSave }: { onSave: (color: Color) => void
         <ReText text={string`B${b}`} style={[styles.rgb, { color: color(0, 0, b) }]} />
       </View>
       <View style={styles.titleBlock}>
-        <Text style={styles.title}>HSV selector</Text>
+        <Text style={styles.title}>{title}</Text>
       </View>
       <Slider value={value} color={hsv2color(hue, saturation, 1)} state={state} />
       <Animated.View style={[styles.colorBlock, { backgroundColor: color(r, g, b) }]}>
@@ -78,5 +82,5 @@ export default function HSVSelector({ onSave }: { onSave: (color: Color) => void
         </View>
       </Animated.View>
     </View>
-  ), [])
+  ), [title])
 }

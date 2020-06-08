@@ -1,4 +1,3 @@
-// @flow
 import React from 'react'
 import {
   TouchableOpacity, Text, ActivityIndicator, Image, View,

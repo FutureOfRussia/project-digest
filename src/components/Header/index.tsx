@@ -1,4 +1,3 @@
-// @flow
 import React from 'react'
 import { Text, Animated } from 'react-native'
 import styles from './styles'

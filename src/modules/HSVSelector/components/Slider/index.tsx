@@ -1,4 +1,3 @@
-// @flow
 import React from 'react'
 import Animated, {
   diffClamp, divide, set, useCode, block, sub,

@@ -1,14 +1,24 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { View } from 'react-native'
+import { ScrollView } from 'react-native-gesture-handler'
+import Markdown from 'react-native-markdown-display'
+import { useTerms } from '../../helpers/Utilities'
 import { HSVSelector } from '../../modules'
+import { Styles } from '../../constants'
 import styles from './styles'
 
 export default function HSV() {
-  const [color, setColor] = useState({ r: 255, g: 255, b: 255 })
+  const { hsv: terms } = useTerms()
 
   return (
-    <View style={[styles.container, { backgroundColor: `rgb(${color.r},${color.g},${color.b})` }]}>
-      <HSVSelector onSave={(c) => setColor(c)} />
-    </View>
+    <>
+      <View />
+      <ScrollView style={Styles.fullFlex} contentContainerStyle={styles.container}>
+        <HSVSelector title={terms.selectColor} />
+        <Markdown onLinkPress={() => true} style={styles}>
+          {terms.description}
+        </Markdown>
+      </ScrollView>
+    </>
   )
 }
