@@ -1,11 +1,9 @@
-import Button from './Button'
-import Header from './Header'
 import ComponentCard from './ComponentCard'
 import LinkComponent from './LinkComponent'
+import TapHandler from './TapHandler'
 
 export {
-  Button,
-  Header,
   ComponentCard,
   LinkComponent,
+  TapHandler,
 }

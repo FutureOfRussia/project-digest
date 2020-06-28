@@ -1,49 +1,51 @@
 import React from 'react'
-import {
-  StyleSheet, Text, View, Image, TouchableWithoutFeedback,
-} from 'react-native'
-import Reanimated, { Extrapolate, interpolate } from 'react-native-reanimated'
-import { SharedElement } from 'react-navigation-shared-element'
-import { CardType } from '../../screens/List'
+import { LinearGradient } from 'expo-linear-gradient'
+import Reanimated, { add, interpolate, sub } from 'react-native-reanimated'
+import { height, px } from '../../../../helpers/Dimensions'
+import { rgb } from '../../../../helpers/Colors'
 import styles from './styles'
 
-export default function Card({ card, velocity, onPress }: {
-  card: CardType, velocity: Reanimated.Value<number>, onPress: () => void,
-}): any {
+const CARD_HEIGHT = px(230)
+
+export default function Card({ length, index, y }: {
+  length: number, index: number, y: Reanimated.Value<number>,
+}): JSX.Element {
+  const position = sub(index * CARD_HEIGHT, y)
+  const isDisappearing = -CARD_HEIGHT
+  const isTop = 0
+  const isBottom = height(100) - CARD_HEIGHT
+  const isAppearing = height(100)
+  const translateY = add(
+    add(
+      y,
+      interpolate(y, {
+        inputRange: [isDisappearing, 0, CARD_HEIGHT],
+        outputRange: [CARD_HEIGHT, 0, -CARD_HEIGHT],
+      }),
+    ),
+    interpolate(position, {
+      inputRange: [isDisappearing, isTop, isBottom, isAppearing],
+      outputRange: [CARD_HEIGHT - px(1), 0, 0, -CARD_HEIGHT + px(1)],
+    }),
+  )
+
+  const s = ((length + 3) / 4) - 1
+  const p = 255 / (((length + 3) / 4) - 1)
+  const firstStep = ((2 * s) - index) * p
+  const secondStep = (index - (2 * s)) * p
+  const lastStep = index > (2 * s) ? (((4 * s) - index) * p) : (index * p)
+
+  const startColor = rgb(firstStep, secondStep, lastStep)
+  const finishColor = rgb(secondStep, lastStep, firstStep)
+
   return (
-    <TouchableWithoutFeedback {...{ onPress }}>
-      <Reanimated.View
-        style={[
-          styles.container,
-          {
-            transform: [{
-              perspective: 800,
-              rotateX: interpolate(velocity, {
-                inputRange: [-5, -0.5, 0, 0.5, 5],
-                outputRange: [0.15, 0, 0, 0, -0.15],
-                extrapolate: Extrapolate.CLAMP,
-              }),
-            }],
-          },
-        ]}
-      >
-        <SharedElement id={`background.${card.id}`} style={StyleSheet.absoluteFill}>
-          <View style={styles.background} />
-        </SharedElement>
-        <SharedElement id={`image.${card.id}`}>
-          <Image style={styles.image} source={card.photo} />
-        </SharedElement>
-        <View style={styles.content}>
-          <SharedElement id={`name.${card.id}`} style={styles.name}>
-            <Text style={styles.title}>{card.name}</Text>
-          </SharedElement>
-          {card.description && (
-            <SharedElement id={`description.${card.id}`} style={styles.description}>
-              <Text numberOfLines={3} style={styles.text}>{card.description}</Text>
-            </SharedElement>
-          )}
-        </View>
-      </Reanimated.View>
-    </TouchableWithoutFeedback>
+    <Reanimated.View style={[styles.container, { transform: [{ translateY }] }]}>
+      <LinearGradient
+        colors={[startColor, finishColor]}
+        start={{ x: 1, y: 1 }}
+        end={{ x: 0, y: 0 }}
+        style={styles.gradient}
+      />
+    </Reanimated.View>
   )
 }

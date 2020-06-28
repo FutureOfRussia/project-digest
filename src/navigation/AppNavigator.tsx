@@ -18,7 +18,8 @@ import { Dispatch } from '../models'
 
 const Stack = createNativeStackNavigator()
 
-const hsvUrl = 'https://github.com/FutureOfRussia/project-digest/blob/master/src/modules/HSVSelector'
+const hsvUrl = 'https://github.com/FutureOfRussia/project-digest/tree/master/src/modules/HSVSelector'
+const cardListUrl = 'https://github.com/FutureOfRussia/project-digest/tree/master/src/modules/CardList'
 
 const styles = StyleSheet.create({
   rightElement: {
@@ -94,7 +95,18 @@ export default function () {
             ),
           }}
         />
-        <Stack.Screen name="CardList" component={CardList} options={{ headerShown: false }} />
+        <Stack.Screen
+          name="CardList"
+          component={CardList}
+          options={{
+            headerTitle: titles.cardList,
+            headerRight: () => (
+              <TouchableOpacity onPress={() => Linking.openURL(cardListUrl)} style={styles.rightElement}>
+                <Ionicons name="ios-git-network" size={px(35)} color={Colors.ACTIVE_TINT} />
+              </TouchableOpacity>
+            ),
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   )

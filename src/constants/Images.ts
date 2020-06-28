@@ -4,6 +4,7 @@ const images = {
   for: require('../../assets/FoR.jpg'),
   forQ: require('../../assets/FoRq.jpg'),
   gradient: require('../../assets/gradient.png'),
+  cards: require('../../assets/cards.png'),
   onepunch: require('../../assets/onepunch.jpg'),
 }
 

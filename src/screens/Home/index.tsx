@@ -7,23 +7,23 @@ import { Images, Styles } from '../../constants'
 import { ComponentCard } from '../../components'
 import styles from './styles'
 
-
 export default function Home() {
   const navigation = useNavigation()
   const { home: terms } = useTerms()
 
-  const cards = {
-    hsv: { image: Images.gradient, ...terms.cards.hsv },
-    cardList: { image: Images.placeholder, ...terms.cards.cardList },
-  }
+  const cards = [
+    { image: Images.gradient, ...terms.cards.hsv, path: 'HSV' },
+    { image: Images.cards, ...terms.cards.cardList, path: 'CardList' },
+  ]
 
   return (
     <>
       <View />
       <ScrollView style={Styles.fullFlex} contentContainerStyle={styles.content}>
         <StatusBar barStyle="dark-content" />
-        <ComponentCard card={cards.hsv} onPress={() => navigation.navigate('HSV')} />
-        <ComponentCard card={cards.cardList} onPress={() => navigation.navigate('CardList')} />
+        {cards.map((card, index) => (
+          <ComponentCard card={card} onPress={() => navigation.navigate(card.path)} key={index.toString()} />
+        ))}
       </ScrollView>
     </>
   )

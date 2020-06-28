@@ -1,10 +1,10 @@
 export default {
   titles: {
-    home: 'Components',
+    home: 'Home',
     hsv: 'HSV Selector',
+    cardList: 'Card List',
   },
   home: {
-    title: 'Components',
     cards: {
       hsv: {
         title: 'HSV Selector',
@@ -12,7 +12,7 @@ export default {
       },
       cardList: {
         title: 'Card list',
-        description: 'A list of cards with responsive animation of movements and transitions to the page with details.',
+        description: 'List of elements with individual animation.',
       },
     },
   },

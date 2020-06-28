@@ -1,18 +1,18 @@
 export default {
   titles: {
-    home: 'Компоненты',
+    home: 'Home',
     hsv: 'HSV Selector',
+    cardList: 'Card List',
   },
   home: {
-    title: 'Компоненты',
     cards: {
       hsv: {
         title: 'HSV Selector',
         description: 'Этот компонент позволяет выбрать цвет в HSV моделе.',
       },
       cardList: {
-        title: 'Список карточек',
-        description: 'Список карточек с отзывчивой анимацией движения и переходами на страницу с подробностями.',
+        title: 'Card List',
+        description: 'Список элементов с индивидуальной анимацией.',
       },
     },
   },
