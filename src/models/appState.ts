@@ -1,20 +1,12 @@
-export interface AppStateType {
-  locale: 'ru' | 'en'
-}
+import { AppState } from '../Types/Models'
 
-export interface AppStateDispatchType {
-  appState: {
-    setAppState: (payload: object) => AppStateType
-  }
-}
-
-const initialState: AppStateType = {
+const initialState: AppState = {
   locale: 'en',
 }
 
-export const appState = {
+export default {
   state: initialState,
   reducers: {
-    setAppState: (state: AppStateType, payload: object): AppStateType => ({ ...state, ...payload }),
+    setAppState: (state: AppState, payload: object): AppState => ({ ...state, ...payload }),
   },
 }

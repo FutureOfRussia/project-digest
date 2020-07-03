@@ -1,96 +1,15 @@
 node_modules/**/*
 .expo/*
 npm-debug.*
+*.jks
 *.p8
 *.p12
 *.key
 *.mobileprovision
 *.orig.*
 web-build/
-web-report/
+.idea
 .expo-shared
-# Expo
-.expo
-__generated__
 
 # macOS
 .DS_Store
-
-# Node
-node_modules
-npm-debug.log
-yarn-error.log
-
-# Xcode
-*.pbxuser
-!default.pbxuser
-*.xccheckout
-*.xcscmblueprint
-xcuserdata
-
-# Android Studio
-.idea
-*.iml
-.gradle
-*.jks
-
-# Android
-*.apk
-*.aab
-/android/**/build
-/android/**/local.properties
-/android/captures
-/android/expoview/libs/ReactAndroid-temp
-/android/versioned-react-native/ReactAndroid
-ReactAndroid-temp.aar
-
-# Tools
-jarjar-rules.txt
-
-# Dynamic Macros
-/ios/Exponent/Supporting/EXBuildConstants.plist.bak
-/ios/Exponent/Supporting/EXBuildConstants.plist.json
-/ios/Exponent/Supporting/EXBuildConstants.plist
-/android/expoview/src/main/java/host/exp/exponent/generated/ExponentBuildConstants.java
-/android/app/src/androidTest/java/host/exp/exponent/generated/TestBuildConstants.java
-.kernel-ngrok-url
-
-# Template files
-/android/expoview/src/main/java/host/exp/exponent/generated/ExponentKeys.java
-/android/app/fabric.properties
-/ios/Exponent/Generated/EXKeys.h
-/ios/ExponentIntegrationTests/EXTestEnvironment.plist
-/ios/Pods
-
-/exponent-view-template/ios/Podfile
-
-# Codemod
-.codemod.bookmark
-
-# Fastlane
-/*.cer
-/fastlane/report.xml
-/fastlane/Preview.html
-/Deployment
-/Preview.html
-
-.env
-output.json
-
-# CI
-/android/logcat.txt
-
-# Shell apps
-android-shell-app
-shellAppBase-*
-shellAppIntermediates
-shellAppWorkspaces
-
-# Expo Client builds
-/client-builds
-
-# Expo web env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local

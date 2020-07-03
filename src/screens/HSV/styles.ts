@@ -1,7 +1,7 @@
 import { Platform, StyleSheet } from 'react-native'
 import { px } from '../../helpers/Dimensions'
-import { Colors } from '../../constants'
 import { black } from '../../helpers/Colors'
+import { Colors } from '../../constants'
 
 export default StyleSheet.create({
   container: {

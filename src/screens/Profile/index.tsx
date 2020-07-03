@@ -1,16 +1,16 @@
 import React from 'react'
-import {
-  Image, StatusBar, Text, View,
-} from 'react-native'
+import { Image, Text, View } from 'react-native'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
+import { StatusBar } from 'expo-status-bar'
 import { Colors, Images, Styles } from '../../constants'
-import { useTerms } from '../../helpers/Utilities'
-import { LinkComponent } from '../../components'
 import { px } from '../../helpers/Dimensions'
+import { Link } from '../../components'
+import { useColorScheme, useTerms } from '../../hooks'
 import styles from './styles'
 
 export default function Profile() {
   const { profile: terms } = useTerms()
+  const colorSchema = useColorScheme()
 
   const links = {
     hh: {
@@ -37,7 +37,7 @@ export default function Profile() {
 
   return (
     <View style={Styles.fullFlex}>
-      <StatusBar barStyle="light-content" />
+      <StatusBar style={colorSchema} />
       <Image source={Images.for} style={styles.headerImage} />
       <View style={styles.content}>
         <Text style={[styles.title, { fontSize: px(38) }]}>{terms.name}</Text>
@@ -50,11 +50,11 @@ export default function Profile() {
           <Text style={styles.text}>{terms.place}</Text>
         </View>
         <Text style={styles.title}>{terms.linksTitle}</Text>
-        <LinkComponent link={links.hh} />
-        <LinkComponent link={links.git} />
+        <Link {...links.hh} />
+        <Link {...links.git} />
         <Text style={styles.title}>{terms.contactsTitle}</Text>
-        <LinkComponent link={links.mail} />
-        <LinkComponent link={links.telegram} />
+        <Link {...links.mail} />
+        <Link {...links.telegram} />
       </View>
     </View>
   )

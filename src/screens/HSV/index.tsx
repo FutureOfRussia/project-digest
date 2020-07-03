@@ -2,9 +2,9 @@ import React from 'react'
 import { View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import Markdown from 'react-native-markdown-display'
-import { useTerms } from '../../helpers/Utilities'
 import { HSVSelector } from '../../modules'
 import { Styles } from '../../constants'
+import { useTerms } from '../../hooks'
 import styles from './styles'
 
 export default function HSV() {

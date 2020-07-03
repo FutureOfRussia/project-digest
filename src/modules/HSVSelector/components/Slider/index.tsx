@@ -11,13 +11,8 @@ import { hitSlop } from '../../../../helpers/Utilities'
 import { px } from '../../../../helpers/Dimensions'
 import { black } from '../../../../helpers/Colors'
 import { Colors } from '../../../../constants'
+import { SliderProps } from '../../types'
 import styles from './styles'
-
-interface SliderProps {
-  value: Animated.Value<number>
-  color: Animated.Node<number>
-  state: Animated.Value<number>
-}
 
 export default function Slider({ value, color, state }: SliderProps) {
   const [_state, translationX, offset, translateX] = useValues(State.UNDETERMINED, 0, 0, px(250))

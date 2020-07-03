@@ -1,21 +1,9 @@
 import React from 'react'
 import { createSharedElementStackNavigator } from 'react-navigation-shared-element'
-import { RouteProp } from '@react-navigation/native'
-import { CardType } from './screens/List'
 import { List, Details } from './screens'
 import { Colors } from '../../constants'
 
 const Stack = createSharedElementStackNavigator()
-
-type RootStackParamList = {
-  List: undefined
-  Details: {
-    sharedElements: Array<string | object>
-    card: CardType
-  }
-}
-
-export type DetailsScreenRouteProp = RouteProp<RootStackParamList, 'Details'>
 
 export default function CardList() {
   return (

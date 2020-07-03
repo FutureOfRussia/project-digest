@@ -1,10 +1,10 @@
 import React from 'react'
-import { StatusBar, View } from 'react-native'
+import { View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import { useNavigation } from '@react-navigation/native'
-import { useTerms } from '../../helpers/Utilities'
 import { Images, Styles } from '../../constants'
-import { ComponentCard } from '../../components'
+import { Card } from '../../components'
+import { useTerms } from '../../hooks'
 import styles from './styles'
 
 export default function Home() {
@@ -16,13 +16,16 @@ export default function Home() {
     { image: Images.cards, ...terms.cards.cardList, path: 'CardList' },
   ]
 
+  const onPress = (path: string): void => {
+    navigation.navigate(path)
+  }
+
   return (
     <>
       <View />
       <ScrollView style={Styles.fullFlex} contentContainerStyle={styles.content}>
-        <StatusBar barStyle="dark-content" />
         {cards.map((card, index) => (
-          <ComponentCard card={card} onPress={() => navigation.navigate(card.path)} key={index.toString()} />
+          <Card card={card} onPress={() => onPress(card.path)} key={index.toString()} />
         ))}
       </ScrollView>
     </>

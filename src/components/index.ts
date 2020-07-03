@@ -1,9 +1,13 @@
-import ComponentCard from './ComponentCard'
-import LinkComponent from './LinkComponent'
-import TapHandler from './TapHandler'
+import Text from './Text'
+import View from './View'
+import Card from './Card'
+import Link from './Link'
+import BounceButton from './BounceButton'
 
 export {
-  ComponentCard,
-  LinkComponent,
-  TapHandler,
+  Text,
+  View,
+  Card,
+  Link,
+  BounceButton,
 }

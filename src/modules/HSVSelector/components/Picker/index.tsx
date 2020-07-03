@@ -11,14 +11,8 @@ import { useMemoOne } from 'use-memo-one'
 import * as Haptics from 'expo-haptics'
 import { hitSlop } from '../../../../helpers/Utilities'
 import { px } from '../../../../helpers/Dimensions'
+import { PickerProps } from '../../types'
 import styles from './styles'
-
-interface PickerProps {
-  hue: Animated.Value<number>
-  saturation: Animated.Value<number>
-  size: number
-  state: Animated.Value<number>
-}
 
 export default function Picker({
   hue, saturation, size, state,

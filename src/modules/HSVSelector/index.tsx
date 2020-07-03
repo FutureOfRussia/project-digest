@@ -1,31 +1,21 @@
 import React from 'react'
 import { Text, View } from 'react-native'
-import { Surface } from 'gl-react-expo'
-import { GLSL, Node, Shaders } from 'gl-react'
-import Animated, {
-  call, color, cond, eq, useCode,
-} from 'react-native-reanimated'
 import { State } from 'react-native-gesture-handler'
 import {
   hsv2color, hsv2rgb, ReText, string, useValues,
 } from 'react-native-redash'
+import { GLSL, Node, Shaders } from 'gl-react'
 import { useMemoOne } from 'use-memo-one'
+import { Surface } from 'gl-react-expo'
+import Animated, {
+  call, color, cond, eq, useCode,
+} from 'react-native-reanimated'
 import { px } from '../../helpers/Dimensions'
 import { Picker, Slider } from './components'
+import { HSVSelectorProps } from './types'
 import styles from './styles'
 
-export interface Color {
-  r: number
-  g: number
-  b: number
-}
-
-interface Props {
-  onSave?: (color: Color) => void
-  title?: string
-}
-
-export default function HSVSelector({ onSave = () => {}, title = '' }: Props) {
+export default function HSVSelector({ onSave = () => {}, title = '' }: HSVSelectorProps) {
   const [hue, saturation, value, state] = useValues(0.0, 0.0, 0.0, State.UNDETERMINED)
   const { r, g, b } = hsv2rgb(hue, saturation, value)
 
@@ -65,8 +55,11 @@ export default function HSVSelector({ onSave = () => {}, title = '' }: Props) {
   return useMemoOne(() => (
     <View style={styles.container}>
       <View style={styles.rgbBlock}>
+        {/* @ts-ignore */}
         <ReText text={string`R${r}`} style={[styles.rgb, { color: color(r, 0, 0) }]} />
+        {/* @ts-ignore */}
         <ReText text={string`G${g}`} style={[styles.rgb, { color: color(0, g, 0) }]} />
+        {/* @ts-ignore */}
         <ReText text={string`B${b}`} style={[styles.rgb, { color: color(0, 0, b) }]} />
       </View>
       <View style={styles.titleBlock}>

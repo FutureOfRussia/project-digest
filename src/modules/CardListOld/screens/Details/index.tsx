@@ -14,7 +14,7 @@ import {
   onGestureEvent, timing, useValues,
 } from 'react-native-redash'
 import { useMemoOne } from 'use-memo-one'
-import { DetailsScreenRouteProp } from '../../index'
+import { DetailsScreenRouteProp } from '../../types'
 import { px } from '../../../../helpers/Dimensions'
 import { Styles } from '../../../../constants'
 import styles from './styles'

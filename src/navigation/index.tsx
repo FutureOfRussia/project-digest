@@ -1,20 +1,21 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import {
-  ImageBackground, StatusBar, StyleSheet, TouchableOpacity,
+  ColorSchemeName, ImageBackground, StyleSheet, TouchableOpacity,
 } from 'react-native'
+import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native'
 import { createNativeStackNavigator } from 'react-native-screens/native-stack'
-import { NavigationContainer } from '@react-navigation/native'
 import * as Localization from 'expo-localization'
 import { Ionicons } from '@expo/vector-icons'
 import { useDispatch } from 'react-redux'
 import * as Linking from 'expo-linking'
+import LinkingConfiguration from '../helpers/LinkingConfiguration'
 import { Colors, Images, Styles } from '../constants'
-import { useTerms } from '../helpers/Utilities'
 import { Home, HSV, Profile } from '../screens'
+import { Dispatch } from '../Types/Models'
 import { px } from '../helpers/Dimensions'
 import { white } from '../helpers/Colors'
 import { CardList } from '../modules'
-import { Dispatch } from '../models'
+import { useTerms } from '../hooks'
 
 const Stack = createNativeStackNavigator()
 
@@ -30,7 +31,7 @@ const styles = StyleSheet.create({
   },
 })
 
-export default function () {
+export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   const { appState: { setAppState } }: Dispatch = useDispatch()
   const [loading, setLoading] = useState(false)
   const navigation: any = useRef(null)
@@ -38,7 +39,7 @@ export default function () {
 
   useEffect(() => {
     const fetchData = async () => {
-      let [locale] = Localization.locale.split('-')
+      let [locale] = await Localization.locale.split('-')
       if (locale !== 'ru') locale = 'en'
       setAppState({ locale })
     }
@@ -52,15 +53,17 @@ export default function () {
       <ImageBackground
         source={Images.splash}
         resizeMode="contain"
-        style={[Styles.fullFlex, { backgroundColor: Colors.BACKGROUND }]}
-      >
-        <StatusBar barStyle="dark-content" />
-      </ImageBackground>
+        style={[Styles.fullFlex, { backgroundColor: Colors.WHITE }]}
+      />
     )
   }
 
   return (
-    <NavigationContainer ref={navigation}>
+    <NavigationContainer
+      ref={navigation}
+      linking={LinkingConfiguration}
+      theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
+    >
       <Stack.Navigator
         screenOptions={{
           headerLargeTitle: true,

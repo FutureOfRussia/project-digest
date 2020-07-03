@@ -1,15 +1,14 @@
 import React from 'react'
-import { LinearGradient } from 'expo-linear-gradient'
 import Reanimated, { add, interpolate, sub } from 'react-native-reanimated'
+import { LinearGradient } from 'expo-linear-gradient'
 import { height, px } from '../../../../helpers/Dimensions'
 import { rgb } from '../../../../helpers/Colors'
+import { CardProps } from '../../types'
 import styles from './styles'
 
 const CARD_HEIGHT = px(230)
 
-export default function Card({ length, index, y }: {
-  length: number, index: number, y: Reanimated.Value<number>,
-}): JSX.Element {
+export default function Card({ length, index, y }: CardProps): JSX.Element {
   const position = sub(index * CARD_HEIGHT, y)
   const isDisappearing = -CARD_HEIGHT
   const isTop = 0

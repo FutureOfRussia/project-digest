@@ -1,10 +1,4 @@
-import { appState, AppStateDispatchType, AppStateType } from './appState'
-
-export interface State {
-  appState: AppStateType
-}
-
-export interface Dispatch extends AppStateDispatchType {}
+import appState from './appState'
 
 export default {
   appState,

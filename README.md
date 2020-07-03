@@ -1,5 +1,5 @@
 # Project "Digest"
-<img src="https://github.com/FutureOfRussia/project-digest/blob/master/assets/splash.png?raw=true" width="250" height="250" />
+<img src="https://github.com/FutureOfRussia/project-digest/blob/master/assets/images/splash.png?raw=true" width="250" height="250" />
 
 ### What's this?
 This is the place for my creative experiments. Ultimately, I see it as a UI Kit, a set of responsive interfaces with powerful animations.
@@ -27,7 +27,7 @@ You can run the published application or download the repository and run it on y
 
   Follow the [link](https://expo.io/@futureofrussiaguest/Digest) or scan this QR code:  
 
-  ![](https://github.com/FutureOfRussia/project-digest/blob/master/assets/link(guest).png?raw=true)  
+  ![](https://github.com/FutureOfRussia/project-digest/blob/master/assets/images/link(guest).png?raw=true)  
 
 **Install project**  
 

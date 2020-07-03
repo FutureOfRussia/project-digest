@@ -1,34 +1,15 @@
-import { useSelector } from 'react-redux'
 import { Platform } from 'react-native'
-import Languages from '../../assets/languages'
+import { Shadow } from '../Types/Utilities'
 import { black } from './Colors'
-import { State } from '../models'
 
-const hitSlop = (offset: number) => ({
+export const hitSlop = (offset: number) => ({
   top: offset,
   left: offset,
   bottom: offset,
   right: offset,
 })
 
-const useTerms = () => {
-  const { locale } = useSelector((state: State) => state.appState)
-
-  return Languages[locale]
-}
-
-interface Shadow {
-  shadowColor?: string
-  shadowOffset?: {
-    width?: number
-    height?: number
-  },
-  shadowRadius?: number
-  shadowOpacity?: number
-  elevation?: number
-}
-
-const shadow = ({
+export const shadow = ({
   shadowColor, shadowOffset, shadowRadius, shadowOpacity, elevation,
 }: Shadow = {}) => Platform.select({
   ios: {
@@ -39,9 +20,3 @@ const shadow = ({
   },
   android: { elevation: elevation || 10 },
 })
-
-export {
-  hitSlop,
-  useTerms,
-  shadow,
-}

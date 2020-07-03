@@ -4,12 +4,10 @@ import {
 } from 'react-native'
 import Reanimated, { Extrapolate, interpolate } from 'react-native-reanimated'
 import { SharedElement } from 'react-navigation-shared-element'
-import { CardType } from '../../screens/List'
+import { CardProps } from '../../types'
 import styles from './styles'
 
-export default function Card({ card, velocity, onPress }: {
-  card: CardType, velocity: Reanimated.Value<number>, onPress: () => void,
-}): any {
+export default function Card({ card, velocity, onPress }: CardProps): any {
   return (
     <TouchableWithoutFeedback {...{ onPress }}>
       <Reanimated.View
