@@ -2,20 +2,21 @@ import React, { useState, useEffect, useRef } from 'react'
 import {
   ColorSchemeName, ImageBackground, StyleSheet, TouchableOpacity,
 } from 'react-native'
-import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native'
 import { createNativeStackNavigator } from 'react-native-screens/native-stack'
+import { NavigationContainer } from '@react-navigation/native'
 import * as Localization from 'expo-localization'
 import { Ionicons } from '@expo/vector-icons'
 import { useDispatch } from 'react-redux'
 import * as Linking from 'expo-linking'
 import LinkingConfiguration from '../helpers/LinkingConfiguration'
 import { Colors, Images, Styles } from '../constants'
-import { Home, HSV, Profile } from '../screens'
+import { black, white } from '../helpers/Colors'
 import { Dispatch } from '../Types/Models'
 import { px } from '../helpers/Dimensions'
-import { white } from '../helpers/Colors'
-import { CardList } from '../modules'
 import { useTerms } from '../hooks'
+import {
+  Home, HSV, Profile, CardList,
+} from '../screens'
 
 const Stack = createNativeStackNavigator()
 
@@ -36,6 +37,28 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
   const [loading, setLoading] = useState(false)
   const navigation: any = useRef(null)
   const { titles } = useTerms()
+
+  const darkTheme = {
+    dark: true,
+    colors: {
+      primary: Colors.ACTIVE_TINT,
+      background: Colors.WHITE,
+      card: black(0.6),
+      text: Colors.WHITE,
+      border: Colors.TRANSPARENT,
+    },
+  }
+
+  const defaultTheme = {
+    dark: false,
+    colors: {
+      primary: Colors.ACTIVE_TINT,
+      background: Colors.WHITE,
+      card: white(0.1),
+      text: black(0.85),
+      border: Colors.TRANSPARENT,
+    },
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -62,15 +85,12 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
     <NavigationContainer
       ref={navigation}
       linking={LinkingConfiguration}
-      theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
+      theme={colorScheme === 'dark' ? darkTheme : defaultTheme}
     >
       <Stack.Navigator
         screenOptions={{
           headerLargeTitle: true,
           headerTranslucent: true,
-          headerStyle: { backgroundColor: white(0.1) },
-          headerTintColor: Colors.ACTIVE_TINT,
-          headerTitleStyle: { color: Colors.BLACK },
         }}
       >
         <Stack.Screen

@@ -1,20 +1,13 @@
-const tintColorLight = '#2f95dc'
-const tintColorDark = '#fff'
+import { black, white } from '../helpers/Colors'
 
 export default {
   light: {
-    text: '#000',
-    background: '#fff',
-    tint: tintColorLight,
-    tabIconDefault: '#ccc',
-    tabIconSelected: tintColorLight,
+    text: black(0.85),
+    background: white(),
   },
   dark: {
-    text: '#fff',
-    background: '#000',
-    tint: tintColorDark,
-    tabIconDefault: '#ccc',
-    tabIconSelected: tintColorDark,
+    text: white(),
+    background: black(0.85),
   },
   WHITE: '#FFFFFF',
   BLACK: '#000000',

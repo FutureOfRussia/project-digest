@@ -1,16 +1,16 @@
 import React from 'react'
-import { Image, Text, View } from 'react-native'
+import { Image } from 'react-native'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { StatusBar } from 'expo-status-bar'
-import { Colors, Images, Styles } from '../../constants'
+import { useThemeColor, useTerms } from '../../hooks'
+import { Link, View, Text } from '../../components'
+import { Images, Styles } from '../../constants'
 import { px } from '../../helpers/Dimensions'
-import { Link } from '../../components'
-import { useColorScheme, useTerms } from '../../hooks'
+import { black } from '../../helpers/Colors'
 import styles from './styles'
 
 export default function Profile() {
   const { profile: terms } = useTerms()
-  const colorSchema = useColorScheme()
 
   const links = {
     hh: {
@@ -35,21 +35,24 @@ export default function Profile() {
     },
   }
 
+  const color = useThemeColor({}, 'text')
+
   return (
     <View style={Styles.fullFlex}>
-      <StatusBar style={colorSchema} />
+      {/* eslint-disable-next-line react/style-prop-object */}
+      <StatusBar style="light" />
       <Image source={Images.for} style={styles.headerImage} />
       <View style={styles.content}>
         <Text style={[styles.title, { fontSize: px(38) }]}>{terms.name}</Text>
         <View style={styles.textBlock}>
-          <MaterialCommunityIcons name="briefcase-outline" size={px(28)} color={Colors.BLACK} />
+          <MaterialCommunityIcons name="briefcase-outline" size={px(28)} color={color} />
           <Text style={styles.text}>{terms.work}</Text>
         </View>
         <View style={styles.textBlock}>
-          <MaterialCommunityIcons name="map-marker-outline" size={px(28)} color={Colors.BLACK} />
+          <MaterialCommunityIcons name="map-marker-outline" size={px(28)} color={color} />
           <Text style={styles.text}>{terms.place}</Text>
         </View>
-        <Text style={styles.title}>{terms.linksTitle}</Text>
+        <Text lightColor={black(0.6)} style={styles.title}>{terms.linksTitle}</Text>
         <Link {...links.hh} />
         <Link {...links.git} />
         <Text style={styles.title}>{terms.contactsTitle}</Text>

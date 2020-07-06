@@ -1,6 +1,5 @@
 import { Platform, StyleSheet } from 'react-native'
 import { px } from '../../helpers/Dimensions'
-import { black } from '../../helpers/Colors'
 import { Colors } from '../../constants'
 
 export default StyleSheet.create({
@@ -12,18 +11,13 @@ export default StyleSheet.create({
   body: {
     fontSize: px(16),
     fontWeight: '400',
-    color: black(0.8),
   },
   heading2: {
     marginTop: px(30),
     fontSize: px(24),
     fontWeight: '600',
-    color: Colors.BLACK,
   },
   link: {
     color: Colors.ACTIVE_TINT,
-  },
-  code_inline: {
-    backgroundColor: Colors.BACKGROUND,
   },
 })
