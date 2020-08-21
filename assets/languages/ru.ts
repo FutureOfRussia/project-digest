@@ -4,6 +4,10 @@ export default {
     hsv: 'HSV Selector',
     cardList: 'Card List',
   },
+  welcome: {
+    next: 'Далее',
+    start: 'Начать',
+  },
   home: {
     cards: {
       hsv: {

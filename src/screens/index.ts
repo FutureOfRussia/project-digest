@@ -1,11 +1,5 @@
-import Home from './Home'
-import Profile from './Profile'
-import HSV from './HSV'
-import CardList from './CardList'
-
-export {
-  Home,
-  Profile,
-  HSV,
-  CardList,
-}
+export { default as Welcome } from './Welcome'
+export { default as Home } from './Home'
+export { default as Profile } from './Profile'
+export { default as HSV } from './HSV'
+export { default as CardList } from './CardList'

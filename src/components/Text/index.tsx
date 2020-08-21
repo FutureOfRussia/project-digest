@@ -5,9 +5,9 @@ import { useThemeColor } from '../../hooks'
 
 export default function Text(props: TextProps) {
   const {
-    fontFamily, style, lightColor, darkColor, ...otherProps
+    fontFamily, fontSize, style, lightColor, darkColor, ...otherProps
   } = props
   const color = useThemeColor({ light: lightColor, dark: darkColor }, 'text')
 
-  return <DefaultText style={[{ color, fontFamily }, style]} {...otherProps} />
+  return <DefaultText style={[{ color, fontFamily, fontSize }, style]} {...otherProps} />
 }

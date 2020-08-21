@@ -44,7 +44,7 @@
     "react-native-gesture-handler": "~1.6.0",
     "react-native-markdown-display": "^6.1.4",
     "react-native-reanimated": "~1.9.0",
-    "react-native-redash": "^14.1.1",
+    "react-native-redash": "^14.2.2",
     "react-native-safe-area-context": "3.0.2",
     "react-native-screens": "~2.9.0",
     "react-native-shared-element": "0.7.0",

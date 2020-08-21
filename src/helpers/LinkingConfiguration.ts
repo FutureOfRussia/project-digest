@@ -4,6 +4,7 @@ export default {
   prefixes: [Linking.makeUrl('/')],
   config: {
     screens: {
+      Welcome: '',
       Home: 'home',
       Profile: 'profile',
       HSV: 'hsv',

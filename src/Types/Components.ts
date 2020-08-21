@@ -1,6 +1,7 @@
 import {
   Text as DefaultText, TextStyle, View as DefaultView, ViewStyle,
 } from 'react-native'
+import Animated from 'react-native-reanimated'
 
 export interface CardProps {
   card: {
@@ -20,7 +21,7 @@ export interface LinkProps {
 export interface BounceButtonProps {
   style: ViewStyle
   onPress?: () => void
-  children: JSX.Element | Array<JSX.Element>
+  children?: JSX.Element | Array<JSX.Element>
 }
 
 export interface ThemeProps {
@@ -30,4 +31,16 @@ export interface ThemeProps {
 
 export type ViewProps = ThemeProps & DefaultView['props']
 
-export type TextProps = ThemeProps & DefaultText['props'] & { fontFamily?: TextStyle['fontFamily'] }
+export type TextProps = ThemeProps & DefaultText['props'] & {
+  fontFamily?: TextStyle['fontFamily'], fontSize?: TextStyle['fontSize']
+}
+
+export interface DotProps {
+  currentIndex: Animated.Node<number>,
+  index: number,
+}
+
+export interface SlideProps {
+  title: string,
+  right?: boolean,
+}

@@ -1,5 +1,6 @@
 export interface AppState {
   locale: 'ru' | 'en'
+  showWelcome: boolean
 }
 
 export interface AppStateDispatch {

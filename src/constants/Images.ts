@@ -8,6 +8,10 @@ const images = {
   gradient: require('../../assets/images/gradient.png'),
   cards: require('../../assets/images/cards.png'),
   onepunch: require('../../assets/images/onepunch.jpg'),
+  flower1: require('../../assets/images/flower-1.png'),
+  flower2: require('../../assets/images/flower-2.png'),
+  flower3: require('../../assets/images/flower-3.png'),
+  flower4: require('../../assets/images/flower-4.png'),
 }
 
 const list = (() => {

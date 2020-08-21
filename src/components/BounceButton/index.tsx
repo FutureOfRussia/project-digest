@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { DeviceEventEmitter } from 'react-native'
+import { DeviceEventEmitter, View } from 'react-native'
 import { mix, useTapGestureHandler, useValue } from 'react-native-redash'
 import { State, TapGestureHandler } from 'react-native-gesture-handler'
 import Animated, {
@@ -8,7 +8,7 @@ import Animated, {
 import * as Random from 'expo-random'
 import { BounceButtonProps } from '../../Types/Components'
 
-export default function BounceButton({ children, onPress = () => {}, style }: BounceButtonProps) {
+export default function BounceButton({ children = <View />, onPress = () => {}, style }: BounceButtonProps) {
   const { gestureHandler, state } = useTapGestureHandler()
   const pressed = useValue<number>(0)
   const progress = useValue(0)

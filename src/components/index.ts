@@ -1,13 +1,7 @@
-import Text from './Text'
-import View from './View'
-import Card from './Card'
-import Link from './Link'
-import BounceButton from './BounceButton'
-
-export {
-  Text,
-  View,
-  Card,
-  Link,
-  BounceButton,
-}
+export { default as Text } from './Text'
+export { default as View } from './View'
+export { default as Card } from './Card'
+export { default as Link } from './Link'
+export { default as BounceButton } from './BounceButton'
+export { default as Slide } from './Slide'
+export { default as Dot } from './Dot'
