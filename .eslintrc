@@ -100,7 +100,8 @@
     "no-use-before-define": 0,
     "no-console": 0,
     "max-len": ["error", { "code":  120 }],
-    "no-unused-vars": "off"
+    "no-unused-vars": "off",
+    "linebreak-style": 0
   },
   "env": {
     "react-native/react-native": true

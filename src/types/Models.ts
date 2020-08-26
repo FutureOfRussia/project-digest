@@ -1,6 +1,7 @@
 export interface AppState {
   locale: 'ru' | 'en'
-  showWelcome: boolean
+  logIn: boolean
+  session: Object | null
 }
 
 export interface AppStateDispatch {

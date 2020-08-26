@@ -1,6 +1,6 @@
 import React from 'react'
 import { Image, Text, View } from 'react-native'
-import { CardProps } from '../../Types/Components'
+import { CardProps } from '../../types/Components'
 import BounceButton from '../BounceButton'
 import styles from './styles'
 

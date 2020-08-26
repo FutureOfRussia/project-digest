@@ -11,8 +11,8 @@ export default function Home() {
   const { home: terms } = useTerms()
 
   const cards = [
-    { image: Images.gradient, ...terms.cards.hsv, path: 'HSV' },
-    { image: Images.cards, ...terms.cards.cardList, path: 'CardList' },
+    { image: Images.getImage('gradient'), ...terms.cards.hsv, path: 'HSV' },
+    { image: Images.getImage('cards'), ...terms.cards.cardList, path: 'CardList' },
   ]
 
   const onPress = (path: string): void => {

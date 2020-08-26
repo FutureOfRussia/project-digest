@@ -41,7 +41,7 @@ export default function Profile() {
     <View style={Styles.fullFlex}>
       {/* eslint-disable-next-line react/style-prop-object */}
       <StatusBar style="light" />
-      <Image source={Images.for} style={styles.headerImage} />
+      <Image source={Images.getImage('for')} style={styles.headerImage} />
       <View style={styles.content}>
         <Text style={[styles.title, { fontSize: px(38) }]}>{terms.name}</Text>
         <View style={styles.textBlock}>

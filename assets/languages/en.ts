@@ -6,7 +6,18 @@ export default {
   },
   welcome: {
     next: 'Next',
-    start: "Let's get started",
+    start: 'Let\'s get started',
+  },
+  logIn: {
+    title: 'Welcome back',
+    subtitle: 'Use your credentials below and login to your account',
+    emailPlaceholder: 'Enter your Email',
+    passwordPlaceholder: 'Enter your password',
+    remember: 'Remember me',
+    forgot: 'Forgot password',
+    logIn: 'Login into your account',
+    signUpQuestion: 'Don\'t have an account?',
+    signUp: 'Sign Up here!',
   },
   home: {
     cards: {

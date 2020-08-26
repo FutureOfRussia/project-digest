@@ -1,8 +1,12 @@
 import React from 'react'
 import Animated, { interpolate, Extrapolate } from 'react-native-reanimated'
-import { DotProps } from '../../Types/Components'
-import { useThemeColor } from '../../hooks'
+import { DotProps } from '../../types/Components'
+import { Colors } from '../../constants'
 import styles from './styles'
+
+Dot.defaultProps = {
+  color: Colors.ACTIVE_TINT,
+}
 
 export default function Dot(props: DotProps): JSX.Element {
   const opacity = interpolate(props.currentIndex, {
@@ -15,7 +19,6 @@ export default function Dot(props: DotProps): JSX.Element {
     outputRange: [1, 1.25, 1],
     extrapolate: Extrapolate.CLAMP,
   })
-  const backgroundColor = useThemeColor({}, 'dot')
 
-  return <Animated.View style={[styles.container, { backgroundColor, opacity, transform: [{ scale }] }]} />
+  return <Animated.View style={[styles.container, { backgroundColor: props.color, opacity, transform: [{ scale }] }]} />
 }

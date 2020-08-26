@@ -1,5 +1,5 @@
 import { Platform } from 'react-native'
-import { Shadow } from '../Types/Utilities'
+import { Shadow } from '../types/Utilities'
 import { black } from './Colors'
 
 export const hitSlop = (offset: number) => ({

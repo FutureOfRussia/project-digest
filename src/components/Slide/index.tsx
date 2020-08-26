@@ -1,7 +1,7 @@
 import React from 'react'
 import { View } from 'react-native'
 import { height, px, width } from '../../helpers/Dimensions'
-import { SlideProps } from '../../Types/Components'
+import { SlideProps } from '../../types/Components'
 import { Colors } from '../../constants'
 import styles from './styles'
 import Text from '../Text'

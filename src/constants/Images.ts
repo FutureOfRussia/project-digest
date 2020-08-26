@@ -1,4 +1,8 @@
-const images = {
+interface Images {
+  [key: string]: number
+}
+
+const images: Images = {
   splash: require('../../assets/images/splash.png'),
   icon: require('../../assets/images/icon.png'),
   favicon: require('../../assets/images/favicon.png'),
@@ -27,7 +31,11 @@ const list = (() => {
   return mapImages
 })()
 
+const getKeyValue = <U extends keyof T, T extends object>(key: U) => (obj: T) => obj[key]
+
+const getImage = (key: keyof Images) => getKeyValue<keyof Images, Images>(key)(images)
+
 export default {
-  ...images,
   list,
+  getImage,
 }

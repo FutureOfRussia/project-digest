@@ -8,7 +8,7 @@ export default StyleSheet.create({
     height: height(2.5),
     width: width(20),
     position: 'absolute',
-    top: height(61.25),
+    top: height(58.75),
     left: width(40),
     borderRadius: height(1.25),
     flexDirection: 'row',
@@ -24,7 +24,7 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   footer: {
-    top: height(65),
+    top: height(62.5),
     left: width(10),
     position: 'absolute',
     width: width(80),
@@ -40,7 +40,7 @@ export default StyleSheet.create({
     height: height(20),
   },
   title: {
-    fontWeight: '600',
+    fontWeight: 'bold',
     fontSize: px(28),
     textAlign: 'center',
     marginBottom: px(20),
@@ -51,7 +51,9 @@ export default StyleSheet.create({
     textAlign: 'center',
   },
   buttonContainer: {
+    backgroundColor: Colors.TRANSPARENT,
     width: '100%',
+    height: px(50),
   },
   button: {
     width: '100%',
@@ -59,10 +61,12 @@ export default StyleSheet.create({
     borderRadius: px(10),
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: Colors.ACTIVE_TINT,
   },
   buttonText: {
     fontSize: px(16),
-    fontWeight: '600',
+    fontWeight: 'bold',
     textAlign: 'center',
+    color: Colors.WHITE,
   },
 })

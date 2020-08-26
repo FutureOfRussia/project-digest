@@ -6,9 +6,9 @@ import Animated, {
   call, cond, Easing, eq, onChange, timing, useCode,
 } from 'react-native-reanimated'
 import * as Random from 'expo-random'
-import { BounceButtonProps } from '../../Types/Components'
+import { BounceButtonProps } from '../../types/Components'
 
-export default function BounceButton({ children = <View />, onPress = () => {}, style }: BounceButtonProps) {
+export default function BounceButton({ children = <View />, onPress = () => {}, style = {} }: BounceButtonProps) {
   const { gestureHandler, state } = useTapGestureHandler()
   const pressed = useValue<number>(0)
   const progress = useValue(0)

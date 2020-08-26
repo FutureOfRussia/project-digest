@@ -1,15 +1,16 @@
+import { Platform } from 'react-native'
 import { black, white } from '../helpers/Colors'
 
 export default {
   light: {
     text: black(0.85),
-    background: '#EDE9E6',
-    dot: black(0.8),
+    background: Platform.select({ ios: white(0.85), android: white() }),
+    input: black(0.1),
   },
   dark: {
     text: white(),
-    background: black(0.85),
-    dot: white(),
+    background: Platform.select({ ios: black(0.85), android: black() }),
+    input: white(0.75),
   },
   WHITE: '#FFFFFF',
   BLACK: '#000000',

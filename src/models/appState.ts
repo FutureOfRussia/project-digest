@@ -1,8 +1,9 @@
-import { AppState } from '../Types/Models'
+import { AppState } from '../types/Models'
 
 const initialState: AppState = {
   locale: 'en',
-  showWelcome: true,
+  logIn: false,
+  session: null,
 }
 
 export default {

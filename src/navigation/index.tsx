@@ -3,6 +3,7 @@ import {
   ColorSchemeName, ImageBackground, StyleSheet, TouchableOpacity,
 } from 'react-native'
 import { createNativeStackNavigator } from 'react-native-screens/native-stack'
+import AsyncStorage from '@react-native-community/async-storage'
 import { NavigationContainer } from '@react-navigation/native'
 import * as Localization from 'expo-localization'
 import { Ionicons } from '@expo/vector-icons'
@@ -11,10 +12,10 @@ import * as Linking from 'expo-linking'
 import LinkingConfiguration from '../helpers/LinkingConfiguration'
 import { Colors, Images, Styles } from '../constants'
 import { black, white } from '../helpers/Colors'
-import { Dispatch, State } from '../Types/Models'
+import { Dispatch, State } from '../types/Models'
 import { px } from '../helpers/Dimensions'
 import {
-  Home, HSV, Profile, CardList, Welcome,
+  Home, HSV, Profile, CardList, Welcome, LogIn,
 } from '../screens'
 import { useTerms } from '../hooks'
 
@@ -34,7 +35,7 @@ const styles = StyleSheet.create({
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   const { appState: { setAppState } }: Dispatch = useDispatch()
-  const { showWelcome } = useSelector((state: State) => state.appState)
+  const { logIn } = useSelector((state: State) => state.appState)
   const [loading, setLoading] = useState(false)
   const navigation: any = useRef(null)
   const { titles } = useTerms()
@@ -66,6 +67,11 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
       let [locale] = await Localization.locale.split('-')
       if (locale !== 'ru') locale = 'en'
       setAppState({ locale })
+
+      const session = await AsyncStorage.getItem('session')
+      if (session) {
+        setAppState({ session: JSON.parse(session), logIn: true })
+      }
     }
 
     setLoading(true)
@@ -75,12 +81,61 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
   if (loading) {
     return (
       <ImageBackground
-        source={Images.splash}
+        source={Images.getImage('splash')}
         resizeMode="contain"
         style={[Styles.fullFlex, { backgroundColor: Colors.WHITE }]}
       />
     )
   }
+
+  const LogInStack = () => (
+    <>
+      <Stack.Screen name="Welcome" component={Welcome} options={{ headerShown: false }} />
+      <Stack.Screen name="LogIn" component={LogIn} options={{ headerShown: false }} />
+    </>
+  )
+
+  const HomeStack = () => (
+    <>
+      <Stack.Screen
+        name="Home"
+        component={Home}
+        options={{
+          headerTitle: titles.home,
+          headerRight: () => (
+            <TouchableOpacity onPress={() => navigation.current.navigate('Profile')} style={styles.rightElement}>
+              <Ionicons name="ios-contact" size={px(45)} color={Colors.ACTIVE_TINT} />
+            </TouchableOpacity>
+          ),
+        }}
+      />
+      <Stack.Screen name="Profile" component={Profile} options={{ stackPresentation: 'modal' }} />
+      <Stack.Screen
+        name="HSV"
+        component={HSV}
+        options={{
+          headerTitle: titles.hsv,
+          headerRight: () => (
+            <TouchableOpacity onPress={() => Linking.openURL(hsvUrl)} style={styles.rightElement}>
+              <Ionicons name="ios-git-network" size={px(35)} color={Colors.ACTIVE_TINT} />
+            </TouchableOpacity>
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="CardList"
+        component={CardList}
+        options={{
+          headerTitle: titles.cardList,
+          headerRight: () => (
+            <TouchableOpacity onPress={() => Linking.openURL(cardListUrl)} style={styles.rightElement}>
+              <Ionicons name="ios-git-network" size={px(35)} color={Colors.ACTIVE_TINT} />
+            </TouchableOpacity>
+          ),
+        }}
+      />
+    </>
+  )
 
   return (
     <NavigationContainer
@@ -89,49 +144,7 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
       theme={colorScheme === 'dark' ? darkTheme : defaultTheme}
     >
       <Stack.Navigator screenOptions={{ headerLargeTitle: true, headerTranslucent: true }}>
-        {showWelcome ? (
-          <Stack.Screen name="Welcome" component={Welcome} options={{ headerShown: false }} />
-        ) : (
-          <>
-            <Stack.Screen
-              name="Home"
-              component={Home}
-              options={{
-                headerTitle: titles.home,
-                headerRight: () => (
-                  <TouchableOpacity onPress={() => navigation.current.navigate('Profile')} style={styles.rightElement}>
-                    <Ionicons name="ios-contact" size={px(45)} color={Colors.ACTIVE_TINT} />
-                  </TouchableOpacity>
-                ),
-              }}
-            />
-            <Stack.Screen name="Profile" component={Profile} options={{ stackPresentation: 'modal' }} />
-            <Stack.Screen
-              name="HSV"
-              component={HSV}
-              options={{
-                headerTitle: titles.hsv,
-                headerRight: () => (
-                  <TouchableOpacity onPress={() => Linking.openURL(hsvUrl)} style={styles.rightElement}>
-                    <Ionicons name="ios-git-network" size={px(35)} color={Colors.ACTIVE_TINT} />
-                  </TouchableOpacity>
-                ),
-              }}
-            />
-            <Stack.Screen
-              name="CardList"
-              component={CardList}
-              options={{
-                headerTitle: titles.cardList,
-                headerRight: () => (
-                  <TouchableOpacity onPress={() => Linking.openURL(cardListUrl)} style={styles.rightElement}>
-                    <Ionicons name="ios-git-network" size={px(35)} color={Colors.ACTIVE_TINT} />
-                  </TouchableOpacity>
-                ),
-              }}
-            />
-          </>
-        )}
+        {logIn ? HomeStack() : LogInStack()}
       </Stack.Navigator>
     </NavigationContainer>
   )

@@ -52,7 +52,8 @@
     "react-navigation-shared-element": "^3.0.0",
     "react-redux": "^7.2.0",
     "redux": "^4.0.5",
-    "use-memo-one": "^1.1.1"
+    "use-memo-one": "^1.1.1",
+    "expo-blur": "~8.1.2"
   },
   "devDependencies": {
     "@babel/core": "^7.8.6",

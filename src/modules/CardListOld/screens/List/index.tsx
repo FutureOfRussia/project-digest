@@ -40,7 +40,7 @@ export default function Home() {
     {
       id: 'saitama',
       name: 'Saitama',
-      photo: Images.onepunch,
+      photo: Images.getImage('onepunch'),
       quote: 'Just an average guy who serves as an average hero',
       description: 'Saitama is usually deliberately drawn in a simpler style than all the other characters, with an '
         + 'elliptical-shaped head and only a basic mouth and eyes. When drawn in a more serious style with more detail,'
@@ -54,7 +54,7 @@ export default function Home() {
     {
       id: 'garou',
       name: 'Garou',
-      photo: Images.onepunch,
+      photo: Images.getImage('onepunch'),
       quote: "The popular will win, the hated will lose, it's such a tragedy.",
       description: 'Garou is a young man with sharp features, yellow eyes, and long silver hair that spikes upwards in '
         + 'two large prongs, giving a feeling of a young wolf.[8][9] While not being a particularly large person, he is'
@@ -75,7 +75,7 @@ export default function Home() {
     {
       id: 'genos',
       name: 'Genos',
-      photo: Images.onepunch,
+      photo: Images.getImage('onepunch'),
       quote: 'Demon Cyborg',
       description: 'Genos is an extremely serious character. He constantly strives to become stronger and pesters '
         + "Saitama to train him frequently. Since becoming Saitama's disciple, Genos is very reverent and protective "
@@ -89,7 +89,7 @@ export default function Home() {
     {
       id: 'silverfang',
       name: 'Silverfang',
-      photo: Images.onepunch,
+      photo: Images.getImage('onepunch'),
       quote: 'You do not need to know who the victor is within a battle using martial arts',
       description: 'Bang has a serious personality. His normal demeanor is very calm, shown when he is seemingly '
         + 'unafraid of the dragon-level meteor falling on Z-City. Unlike most other heroes in the series, Bang prefers '
@@ -105,7 +105,7 @@ export default function Home() {
     {
       id: 'metalknight',
       name: 'Metal knight',
-      photo: Images.onepunch,
+      photo: Images.getImage('onepunch'),
       quote: 'Dr. Bofoi',
       description: 'Bofoi has white hair and a large nose. He is also seen wearing a lab coat over his blue shirt. '
         + 'Bofoi acts mainly through the use of his robots controlled from a safe distance. Two of his robots have been'
@@ -115,7 +115,7 @@ export default function Home() {
     {
       id: 'tatsumaki',
       name: 'Tatsumaki',
-      photo: Images.onepunch,
+      photo: Images.getImage('onepunch'),
       quote: 'To survive in this world... All you can do is get stronger',
       description: 'Tatsumaki has a rather brash, moody, hotheaded and impatient personality. She is disrespectful '
         + 'towards most people, especially to those she deems incompetent. She is completely intolerant to those who'

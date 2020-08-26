@@ -1,26 +1,23 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import { Image, StyleSheet } from 'react-native'
-import { StatusBar } from 'expo-status-bar'
-import { useDispatch } from 'react-redux'
-import Animated, {
-  call, divide, interpolate, onChange, useCode,
-} from 'react-native-reanimated'
+import { useNavigation } from '@react-navigation/native'
 import { interpolateColor, useScrollHandler } from 'react-native-redash'
+import Animated, { divide, interpolate } from 'react-native-reanimated'
+import { StatusBar } from 'expo-status-bar'
+import { BlurView } from 'expo-blur'
 import { height, px, width } from '../../helpers/Dimensions'
 import { Colors, Images, Styles } from '../../constants'
-import { black, white } from '../../helpers/Colors'
-import { Dispatch } from '../../Types/Models'
+import { useColorScheme, useTerms } from '../../hooks'
 import {
   BounceButton, Slide, Text, View, Dot,
 } from '../../components'
-import { useTerms } from '../../hooks'
 import styles from './styles'
 
 const slides = [
   {
     title: 'First',
     color: Colors.YELLOW_EMULSION,
-    image: Images.flower1,
+    image: Images.getImage('flower1'),
     footer: {
       title: 'First title',
       subtitle: 'First subtitle',
@@ -29,7 +26,7 @@ const slides = [
   {
     title: 'Second',
     color: Colors.OAK_SHAVING,
-    image: Images.flower2,
+    image: Images.getImage('flower2'),
     footer: {
       title: 'Second title',
       subtitle: 'Second subtitle',
@@ -38,7 +35,7 @@ const slides = [
   {
     title: 'Third',
     color: Colors.ESCARGOT,
-    image: Images.flower3,
+    image: Images.getImage('flower3'),
     footer: {
       title: 'Third title',
       subtitle: 'Third subtitle',
@@ -47,7 +44,7 @@ const slides = [
   {
     title: 'Last',
     color: Colors.QUARTZ_PINK,
-    image: Images.flower4,
+    image: Images.getImage('flower4'),
     footer: {
       title: 'Last title',
       subtitle: 'Last subtitle',
@@ -56,11 +53,11 @@ const slides = [
 ]
 
 export default function Welcome() {
-  const { appState: { setAppState } }: Dispatch = useDispatch()
   const scroll = useRef<Animated.ScrollView>(null)
-  const [index, setIndex] = useState(0)
   const { scrollHandler, x } = useScrollHandler()
   const { welcome: terms } = useTerms()
+  const colorScheme = useColorScheme()
+  const navigation = useNavigation()
 
   const backgroundColor = interpolateColor(x, {
     inputRange: slides.map((_, i) => i * width(100)),
@@ -68,10 +65,6 @@ export default function Welcome() {
   })
 
   const currentIndex = divide(x, width(100))
-
-  useCode(() => onChange(currentIndex, call([currentIndex], ([_i]) => {
-    if (Math.trunc(_i) !== index) setIndex(_i)
-  })), [index])
 
   return (
     <Animated.View style={[Styles.fullFlex, { backgroundColor }]}>
@@ -87,6 +80,7 @@ export default function Welcome() {
           </Animated.View>
         )
       })}
+      <BlurView intensity={25} tint={colorScheme} style={[Styles.fullFlex, StyleSheet.absoluteFillObject]} />
       <Animated.ScrollView
         horizontal
         snapToInterval={width(100)}
@@ -98,10 +92,10 @@ export default function Welcome() {
       >
         {slides.map(({ title }, i) => <Slide right={!(i % 2)} key={i.toString()} {...{ title }} />)}
       </Animated.ScrollView>
-      <View style={styles.dots} lightColor={white(0.85)} darkColor={black(0.85)}>
+      <View style={styles.dots}>
         {slides.map((_, i) => <Dot currentIndex={currentIndex} index={i} key={i.toString()} />)}
       </View>
-      <View style={styles.footer} lightColor={white(0.85)} darkColor={black(0.85)}>
+      <View style={styles.footer}>
         <View style={styles.footerText}>
           {slides.map(({ footer: { title, subtitle } }, i) => {
             const opacity = interpolate(currentIndex, { inputRange: [i - 0.5, i, i + 0.5], outputRange: [0, 1, 0] })
@@ -120,22 +114,35 @@ export default function Welcome() {
             )
           })}
         </View>
-        <BounceButton
-          style={styles.buttonContainer}
-          onPress={() => {
-            if (index === slides.length - 1) {
-              setAppState({ showWelcome: false })
-            } else if (scroll.current) {
-              scroll.current.getNode().scrollTo({ x: width(100) * (index + 1), animated: true })
-            }
-          }}
-        >
-          <View style={styles.button} lightColor={black(0.8)} darkColor={Colors.WHITE}>
-            <Text style={styles.buttonText} lightColor={Colors.WHITE} darkColor={black(0.85)}>
-              {index === slides.length - 1 ? terms.start : terms.next}
-            </Text>
-          </View>
-        </BounceButton>
+        <View style={styles.buttonContainer}>
+          {slides.map((_, i) => {
+            const opacity = interpolate(currentIndex, { inputRange: [i - 0.5, i, i + 0.5], outputRange: [0, 1, 0] })
+            const translateX = interpolate(currentIndex, {
+              inputRange: [i - 0.75, i, i + 0.75],
+              outputRange: [px(50), 0, -px(50)],
+            })
+            const zIndex = interpolate(currentIndex, { inputRange: [i - 0.5, i, i + 0.5], outputRange: [10, 20, 10] })
+            return (
+              <BounceButton
+                key={i.toString()}
+                style={[StyleSheet.absoluteFillObject, styles.button, { zIndex }]}
+                onPress={() => {
+                  if (i === slides.length - 1) {
+                    navigation.navigate('LogIn')
+                  } else if (scroll.current) {
+                    scroll.current.getNode().scrollTo({ x: width(100) * (i + 1), animated: true })
+                  }
+                }}
+              >
+                <Animated.View style={{ opacity, transform: [{ translateX }] }}>
+                  <Text style={styles.buttonText}>
+                    {i === slides.length - 1 ? terms.start : terms.next}
+                  </Text>
+                </Animated.View>
+              </BounceButton>
+            )
+          })}
+        </View>
       </View>
     </Animated.View>
   )

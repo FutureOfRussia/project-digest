@@ -1,6 +1,6 @@
 import React from 'react'
 import { Text as DefaultText } from 'react-native'
-import { TextProps } from '../../Types/Components'
+import { TextProps } from '../../types/Components'
 import { useThemeColor } from '../../hooks'
 
 export default function Text(props: TextProps) {
