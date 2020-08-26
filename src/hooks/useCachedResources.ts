@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import * as SplashScreen from 'expo-splash-screen'
-import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
+import { Ionicons, MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons'
 import { Asset } from 'expo-asset'
 import * as Font from 'expo-font'
 import { Images } from '../constants'
@@ -16,7 +16,7 @@ export default function useCachedResources() {
         await Font.loadAsync({
           ...Ionicons.font,
           ...MaterialCommunityIcons.font,
-          'space-mono': require('../../assets/fonts/SpaceMono-Regular.ttf'),
+          ...FontAwesome.font,
         })
         await Promise.all(Images.list.map((asset) => Asset.loadAsync(asset)))
       } catch (e) {
@@ -24,10 +24,7 @@ export default function useCachedResources() {
       }
     }
 
-    loadResourcesAndDataAsync().then(async () => {
-      setLoadingComplete(true)
-      await SplashScreen.hideAsync()
-    })
+    loadResourcesAndDataAsync().then(() => setLoadingComplete(true))
   }, [])
 
   return isLoadingComplete

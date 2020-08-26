@@ -1,22 +1,21 @@
-import React, { useState, useEffect, useRef } from 'react'
-import {
-  ColorSchemeName, ImageBackground, StyleSheet, TouchableOpacity,
-} from 'react-native'
+import React, { useEffect, useRef } from 'react'
+import { ColorSchemeName, StyleSheet, TouchableOpacity } from 'react-native'
 import { createNativeStackNavigator } from 'react-native-screens/native-stack'
 import AsyncStorage from '@react-native-community/async-storage'
 import { NavigationContainer } from '@react-navigation/native'
+import { useDispatch, useSelector } from 'react-redux'
+import * as SplashScreen from 'expo-splash-screen'
 import * as Localization from 'expo-localization'
 import { Ionicons } from '@expo/vector-icons'
-import { useDispatch, useSelector } from 'react-redux'
 import * as Linking from 'expo-linking'
 import LinkingConfiguration from '../helpers/LinkingConfiguration'
-import { Colors, Images, Styles } from '../constants'
-import { black, white } from '../helpers/Colors'
 import { Dispatch, State } from '../types/Models'
-import { px } from '../helpers/Dimensions'
+import { black, white } from '../helpers/Colors'
 import {
   Home, HSV, Profile, CardList, Welcome, LogIn,
 } from '../screens'
+import { px } from '../helpers/Dimensions'
+import { Colors } from '../constants'
 import { useTerms } from '../hooks'
 
 const Stack = createNativeStackNavigator()
@@ -36,7 +35,6 @@ const styles = StyleSheet.create({
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   const { appState: { setAppState } }: Dispatch = useDispatch()
   const { logIn } = useSelector((state: State) => state.appState)
-  const [loading, setLoading] = useState(false)
   const navigation: any = useRef(null)
   const { titles } = useTerms()
 
@@ -74,19 +72,10 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
       }
     }
 
-    setLoading(true)
-    fetchData().then(() => setLoading(false)).catch((e) => console.log(e))
+    fetchData().then(async () => {
+      await SplashScreen.hideAsync()
+    }).catch((e) => console.log(e))
   }, [])
-
-  if (loading) {
-    return (
-      <ImageBackground
-        source={Images.getImage('splash')}
-        resizeMode="contain"
-        style={[Styles.fullFlex, { backgroundColor: Colors.WHITE }]}
-      />
-    )
-  }
 
   const LogInStack = () => (
     <>
