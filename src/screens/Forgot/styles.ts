@@ -53,30 +53,23 @@ export default StyleSheet.create({
     textAlign: 'center',
     color: white(),
   },
-  socialBlock: {
-    marginTop: height(5),
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  singInBtnBlock: {
+  footer: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: height(5),
     ...shadow({ shadowOpacity: 0.5 }),
   },
-  signInBtnText: {
+  footerText: {
     fontSize: px(14),
     fontWeight: 'bold',
     textAlign: 'center',
     color: black(0.85),
   },
-  signInBtn: {
+  footerBtn: {
     marginLeft: px(3),
   },
-  signInActiveBtnText: {
+  footerActiveBtnText: {
     fontSize: px(14),
     fontWeight: 'bold',
     textAlign: 'center',

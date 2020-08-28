@@ -13,7 +13,7 @@ export default StyleSheet.create({
     flex: 1,
     paddingHorizontal: width(10),
     justifyContent: 'center',
-    paddingTop: height(20),
+    paddingTop: height(15),
     backgroundColor: Colors.BACKGROUND,
   },
   backgroundImage: {

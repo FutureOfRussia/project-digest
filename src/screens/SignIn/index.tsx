@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import {
-  Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback, View as BaseView, Platform, ImageBackground, Alert,
+  Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback, View as BaseView, Platform, ImageBackground,
 } from 'react-native'
+import AsyncStorage from '@react-native-community/async-storage'
 import { useNavigation } from '@react-navigation/native'
 import { StatusBar } from 'expo-status-bar'
+import { useDispatch } from 'react-redux'
 import { BlurView } from 'expo-blur'
 import {
   BounceButton, CheckBox, TextInput, View, Text, SocialButton,
@@ -12,17 +14,19 @@ import { validateEmail } from '../../helpers/Utilities'
 import { useColorScheme, useTerms } from '../../hooks'
 import { black, white } from '../../helpers/Colors'
 import { Images, Styles } from '../../constants'
+import { Dispatch } from '../../types/Models'
 import styles from './styles'
 
 export default function SignIn() {
-  const navigation = useNavigation()
+  const { appState: { setAppState } }: Dispatch = useDispatch()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [remember, setRemember] = useState(false)
   const [emailValidError, setEmailValidError] = useState('')
   const [passwordValidError, setPasswordValidError] = useState('')
-  const colorScheme = useColorScheme()
   const { signIn: terms, validations } = useTerms()
+  const colorScheme = useColorScheme()
+  const navigation = useNavigation()
 
   const toggleRemember = () => setRemember(!remember)
 
@@ -50,12 +54,16 @@ export default function SignIn() {
     return (emailStatus && passwordStatus)
   }
 
-  const forgotPassword = () => {
-    // navigation.navigate('Forgot')
-  }
+  const forgotPassword = () => navigation.navigate('Forgot')
 
-  const login = () => {
-    if (validation()) Alert.alert('Login!')
+  const login = async () => {
+    if (validation()) {
+      const session = { email }
+      if (remember) {
+        await AsyncStorage.setItem('session', JSON.stringify(session))
+      }
+      setAppState({ login: true, session })
+    }
   }
 
   const loginWithFacebook = () => {

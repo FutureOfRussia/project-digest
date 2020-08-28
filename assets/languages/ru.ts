@@ -36,6 +36,14 @@ export default {
     signInQuestion: 'Already have an account?',
     signIn: 'Sign In here!',
   },
+  forgot: {
+    title: 'Forgot password?',
+    subtitle: 'Enter the email address associated with your account',
+    emailPlaceholder: 'Enter your email',
+    reset: 'Reset password',
+    footer: 'Don\'t work?',
+    footerBtn: 'Try another way!',
+  },
   home: {
     cards: {
       hsv: {

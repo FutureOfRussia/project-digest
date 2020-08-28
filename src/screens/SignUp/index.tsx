@@ -1,30 +1,33 @@
 import React, { useState } from 'react'
 import {
-  Alert,
   ImageBackground, Keyboard, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, View as BaseView,
 } from 'react-native'
+import AsyncStorage from '@react-native-community/async-storage'
 import { useNavigation } from '@react-navigation/native'
 import { StatusBar } from 'expo-status-bar'
+import { useDispatch } from 'react-redux'
 import { BlurView } from 'expo-blur'
+import { validateEmail, validatePassword } from '../../helpers/Utilities'
+import { useColorScheme, useTerms } from '../../hooks'
 import {
   BounceButton, SocialButton, Text, TextInput, View,
 } from '../../components'
-import { validateEmail, validatePassword } from '../../helpers/Utilities'
-import { useColorScheme, useTerms } from '../../hooks'
 import { black, white } from '../../helpers/Colors'
 import { Images, Styles } from '../../constants'
+import { Dispatch } from '../../types/Models'
 import styles from './styles'
 
 export default function SignUp() {
-  const navigation = useNavigation()
+  const { appState: { setAppState } }: Dispatch = useDispatch()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirm, setConfirm] = useState('')
   const [emailValidError, setEmailValidError] = useState('')
   const [passwordValidError, setPasswordValidError] = useState('')
   const [confirmValidError, setConfirmValidError] = useState('')
-  const colorScheme = useColorScheme()
   const { signUp: terms, validations } = useTerms()
+  const colorScheme = useColorScheme()
+  const navigation = useNavigation()
 
   const checkEmail = () => {
     if (!validateEmail(email)) {
@@ -62,8 +65,12 @@ export default function SignUp() {
     return (emailStatus && passwordStatus && confirmStatus)
   }
 
-  const register = () => {
-    if (validation()) Alert.alert('Register!')
+  const register = async () => {
+    if (validation()) {
+      const session = { email }
+      await AsyncStorage.setItem('session', JSON.stringify(session))
+      setAppState({ login: true, session })
+    }
   }
 
   const registerWithFacebook = () => {
