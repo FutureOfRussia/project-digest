@@ -9,11 +9,11 @@ import * as Localization from 'expo-localization'
 import { Ionicons } from '@expo/vector-icons'
 import * as Linking from 'expo-linking'
 import LinkingConfiguration from '../helpers/LinkingConfiguration'
+import {
+  Home, HSV, Profile, CardList, Welcome, SignIn, SignUp,
+} from '../screens'
 import { Dispatch, State } from '../types/Models'
 import { black, white } from '../helpers/Colors'
-import {
-  Home, HSV, Profile, CardList, Welcome, LogIn,
-} from '../screens'
 import { px } from '../helpers/Dimensions'
 import { Colors } from '../constants'
 import { useTerms } from '../hooks'
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   const { appState: { setAppState } }: Dispatch = useDispatch()
-  const { logIn } = useSelector((state: State) => state.appState)
+  const { login } = useSelector((state: State) => state.appState)
   const navigation: any = useRef(null)
   const { titles } = useTerms()
 
@@ -68,7 +68,7 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
 
       const session = await AsyncStorage.getItem('session')
       if (session) {
-        setAppState({ session: JSON.parse(session), logIn: true })
+        setAppState({ session: JSON.parse(session), login: true })
       }
     }
 
@@ -77,10 +77,11 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
     }).catch((e) => console.log(e))
   }, [])
 
-  const LogInStack = () => (
+  const SignInStack = () => (
     <>
-      <Stack.Screen name="Welcome" component={Welcome} options={{ headerShown: false }} />
-      <Stack.Screen name="LogIn" component={LogIn} options={{ headerShown: false }} />
+      <Stack.Screen name="Welcome" component={Welcome} />
+      <Stack.Screen name="SignIn" component={SignIn} />
+      <Stack.Screen name="SignUp" component={SignUp} />
     </>
   )
 
@@ -132,8 +133,8 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
       linking={LinkingConfiguration}
       theme={colorScheme === 'dark' ? darkTheme : defaultTheme}
     >
-      <Stack.Navigator screenOptions={{ headerLargeTitle: true, headerTranslucent: true }}>
-        {logIn ? HomeStack() : LogInStack()}
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        {login ? HomeStack() : SignInStack()}
       </Stack.Navigator>
     </NavigationContainer>
   )

@@ -61,6 +61,7 @@ export interface TextInputProps {
   onChangeText?: (text: string) => void
   valid?: boolean
   inputProps?: DefaultTextInput['props']
+  validError?: string
 }
 
 export interface SocialButtonProps {

@@ -1,4 +1,11 @@
 export default {
+  validations: {
+    emailEmpty: 'Email should not be empty',
+    emailIncorrect: 'Incorrect email',
+    passportEmpty: 'Passport should not be empty',
+    passwordIncorrect: 'Incorrect password (6 characters, including: lowercase, uppercase letter and number)',
+    confirmIncorrect: 'Passwords must match',
+  },
   titles: {
     home: 'Home',
     hsv: 'HSV Selector',
@@ -8,16 +15,26 @@ export default {
     next: 'Next',
     start: 'Let\'s get started',
   },
-  logIn: {
+  signIn: {
     title: 'Welcome back',
     subtitle: 'Use your credentials below and login to your account',
-    emailPlaceholder: 'Enter your Email',
+    emailPlaceholder: 'Enter your email',
     passwordPlaceholder: 'Enter your password',
     remember: 'Remember me',
     forgot: 'Forgot password',
-    logIn: 'Login into your account',
+    login: 'Login into your account',
     signUpQuestion: 'Don\'t have an account?',
     signUp: 'Sign Up here!',
+  },
+  signUp: {
+    title: 'Create account',
+    subtitle: 'Let\'s us know what your email and password',
+    emailPlaceholder: 'Enter your email',
+    passwordPlaceholder: 'Enter your password',
+    confirmPlaceholder: 'Confirm password',
+    register: 'Create a new account',
+    signInQuestion: 'Already have an account?',
+    signIn: 'Sign In here!',
   },
   home: {
     cards: {

@@ -1,8 +1,8 @@
 import { StyleSheet } from 'react-native'
-import { Colors } from '../../constants'
 import { height, px, width } from '../../helpers/Dimensions'
-import { shadow } from '../../helpers/Utilities'
 import { black, white } from '../../helpers/Colors'
+import { shadow } from '../../helpers/Utilities'
+import { Colors } from '../../constants'
 
 export default StyleSheet.create({
   background: {
@@ -38,14 +38,6 @@ export default StyleSheet.create({
     textAlign: 'center',
     marginBottom: px(30),
   },
-  inputActive: {
-    width: '100%',
-    height: px(50),
-    borderRadius: px(5),
-    borderWidth: px(1.5),
-    borderColor: Colors.ACTIVE_TINT,
-    marginVertical: px(10),
-  },
   row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -73,7 +65,7 @@ export default StyleSheet.create({
     textAlign: 'center',
     color: white(),
   },
-  logosBlock: {
+  socialBlock: {
     marginTop: height(5),
     width: '100%',
     flexDirection: 'row',

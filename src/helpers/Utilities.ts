@@ -20,3 +20,14 @@ export const shadow = ({
   },
   android: { elevation: elevation || 10 },
 })
+
+export const validateEmail = (email: string) => (
+  // eslint-disable-next-line max-len
+  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    .test(email)
+)
+
+export const validatePassword = (password: string) => (
+  /^(?=[^A-Z]*[A-Z])(?=[^a-z]*[a-z])(?=[^0-9]*[0-9]).{6,}$/
+    .test(password)
+)

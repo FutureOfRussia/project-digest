@@ -128,7 +128,7 @@ export default function Welcome() {
                 style={[StyleSheet.absoluteFillObject, styles.button, { zIndex }]}
                 onPress={() => {
                   if (i === slides.length - 1) {
-                    navigation.navigate('LogIn')
+                    navigation.navigate('SignIn')
                   } else if (scroll.current) {
                     scroll.current.getNode().scrollTo({ x: width(100) * (i + 1), animated: true })
                   }

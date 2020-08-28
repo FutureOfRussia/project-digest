@@ -2,7 +2,7 @@ import { AppState } from '../types/Models'
 
 const initialState: AppState = {
   locale: 'en',
-  logIn: false,
+  login: false,
   session: null,
 }
 

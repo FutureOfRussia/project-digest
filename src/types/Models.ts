@@ -1,6 +1,6 @@
 export interface AppState {
   locale: 'ru' | 'en'
-  logIn: boolean
+  login: boolean
   session: Object | null
 }
 

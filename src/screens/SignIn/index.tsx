@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import {
-  Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback, View as BaseView, Platform, ImageBackground,
+  Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback, View as BaseView, Platform, ImageBackground, Alert,
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { StatusBar } from 'expo-status-bar'
@@ -8,50 +8,69 @@ import { BlurView } from 'expo-blur'
 import {
   BounceButton, CheckBox, TextInput, View, Text, SocialButton,
 } from '../../components'
+import { validateEmail } from '../../helpers/Utilities'
 import { useColorScheme, useTerms } from '../../hooks'
 import { black, white } from '../../helpers/Colors'
 import { Images, Styles } from '../../constants'
 import styles from './styles'
 
-export default function LogIn() {
+export default function SignIn() {
   const navigation = useNavigation()
-  const [remember, setRemember] = useState(false)
-  const [password, setPassword] = useState('')
   const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [remember, setRemember] = useState(false)
+  const [emailValidError, setEmailValidError] = useState('')
+  const [passwordValidError, setPasswordValidError] = useState('')
   const colorScheme = useColorScheme()
-  const { logIn: terms } = useTerms()
-
-  const validateEmail = () => (
-    // eslint-disable-next-line max-len
-    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      .test(email)
-  )
+  const { signIn: terms, validations } = useTerms()
 
   const toggleRemember = () => setRemember(!remember)
+
+  const checkEmail = () => {
+    if (!validateEmail(email)) {
+      if (email.length === 0) setEmailValidError(validations.emailEmpty)
+      else setEmailValidError(validations.emailIncorrect)
+      return false
+    }
+    return true
+  }
+
+  const checkPassword = () => {
+    if (password.length === 0) {
+      setPasswordValidError(validations.passportEmpty)
+      return false
+    }
+    return true
+  }
+
+  const validation = () => {
+    const emailStatus = checkEmail()
+    const passwordStatus = checkPassword()
+
+    return (emailStatus && passwordStatus)
+  }
 
   const forgotPassword = () => {
     // navigation.navigate('Forgot')
   }
 
-  const logIn = () => {
+  const login = () => {
+    if (validation()) Alert.alert('Login!')
+  }
+
+  const loginWithFacebook = () => {
 
   }
 
-  const logInWithFacebook = () => {
+  const loginWithGoogle = () => {
 
   }
 
-  const logInWithGoogle = () => {
+  const loginWithApple = () => {
 
   }
 
-  const logInWithApple = () => {
-
-  }
-
-  const goToSignUp = () => {
-    // navigation.navigate('SignUp')
-  }
+  const goToSignUp = () => navigation.navigate('SignUp')
 
   return (
     <KeyboardAvoidingView style={styles.background} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
@@ -70,8 +89,12 @@ export default function LogIn() {
             <TextInput
               icon="ios-mail"
               value={email}
-              onChangeText={(text) => setEmail(text)}
-              valid={validateEmail()}
+              onChangeText={(text) => {
+                setEmail(text)
+                if (emailValidError.length > 0) setEmailValidError('')
+              }}
+              valid={validateEmail(email)}
+              validError={emailValidError}
               inputProps={{
                 autoCompleteType: 'email',
                 keyboardType: 'email-address',
@@ -82,7 +105,11 @@ export default function LogIn() {
             <TextInput
               icon="ios-lock"
               value={password}
-              onChangeText={(text) => setPassword(text)}
+              onChangeText={(text) => {
+                setPassword(text)
+                if (passwordValidError.length > 0) setPasswordValidError('')
+              }}
+              validError={passwordValidError}
               inputProps={{
                 autoCompleteType: 'password',
                 textContentType: 'password',
@@ -96,14 +123,14 @@ export default function LogIn() {
                 <Text style={styles.activeBtnText}>{terms.forgot}</Text>
               </BounceButton>
             </BaseView>
-            <BounceButton style={styles.button} onPress={logIn}>
-              <Text style={styles.buttonText}>{terms.logIn}</Text>
+            <BounceButton style={styles.button} onPress={login}>
+              <Text style={styles.buttonText}>{terms.login}</Text>
             </BounceButton>
           </View>
-          <BaseView style={styles.logosBlock}>
-            <SocialButton type="facebook" onPress={logInWithFacebook} />
-            <SocialButton type="google" onPress={logInWithGoogle} />
-            <SocialButton type="apple" onPress={logInWithApple} />
+          <BaseView style={styles.socialBlock}>
+            <SocialButton type="facebook" onPress={loginWithFacebook} />
+            <SocialButton type="google" onPress={loginWithGoogle} />
+            <SocialButton type="apple" onPress={loginWithApple} />
           </BaseView>
           <BaseView style={styles.singUpBtnBlock}>
             <Text style={styles.signUpBtnText}>{terms.signUpQuestion}</Text>
